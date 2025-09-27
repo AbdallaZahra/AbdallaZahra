@@ -1,0 +1,177 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="clones.css">
+  <title>Netflix Clone | My Portfolio</title>
+  </head>
+<body>
+  <header>
+    <a href="index.html" class="back-btn">← Back to Home</a>
+  </header>
+  <div id="project-modal" class="modal">
+  <span class="close-btn">&times;</span>
+  <iframe src="" class="modal-iframe" frameborder="0"></iframe>
+</div>
+
+<canvas id="bgCanvas"></canvas>
+<section class="project-section">
+  <h2>My Clone Projects</h2>
+
+  <div class="project-card">
+    <img src="images/Screenshot 2025-09-06 153019.png" alt="Netflix Clone Preview">
+    <div class="project-info">
+      <h3>Netflix Clone</h3>
+      <p>
+       The Netflix Clone is a fully responsive streaming platform replica built with HTML, CSS, and JavaScript, featuring dynamic movie rows, hover previews, smooth animations, and a dark cinematic theme that closely mirrors the authentic Netflix experience while showcasing my ability to recreate complex real-world websites with attention to detail
+      </p>
+      <a href="#" class="view-btn" data-url="NETFLIX code/index.html">Watch Live</a>
+<!-- Watch Video Button -->
+<button id="watchVideoBtn" class="watch-btn">Watch Video</button>
+
+<!-- Video Modal -->
+<div id="videoModal" class="video-modal">
+  <div class="video-modal-content">
+    <span id="closeVideoModal" class="video-close">&times;</span>
+    <iframe id="videoFrame" width="100%" height="100%" src="https://www.youtube.com/embed/8P9BKVu4USE" 
+      title="YouTube video" frameborder="0" allowfullscreen></iframe>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+
+
+  <div class="project-card">
+    <img src="Amazon clone/images/Screenshot 2025-09-06 171725.png" alt="Amazon Clone Preview">
+    <div class="project-info">
+      <h3>Amazon Clone</h3>
+      <p>
+        A close remake of Amazon’s homepage. Includes responsive grids, dropdowns, a product slider,
+        and shopping cart interactions.
+      </p>
+      <a href="#" class="view-btn" data-url="Amazon clone/index.html">Watch Live</a>
+    </div>
+  </div>
+  
+</section>
+<script>
+
+  const modal = document.getElementById('project-modal');
+  const modalIframe = document.querySelector('.modal-iframe');
+  const closeBtn = document.querySelector('.close-btn');
+  const viewButtons = document.querySelectorAll('.view-btn');
+
+  viewButtons.forEach((button) => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      const url = button.getAttribute('data-url');
+      if (url) {
+        modalIframe.src = url;
+        modal.style.display = 'flex';
+        setTimeout(() => modal.classList.add('show'), 10);
+      }
+    });
+  });
+
+  closeBtn.addEventListener('click', () => {
+    modal.classList.remove('show');
+    setTimeout(() => {
+      modal.style.display = 'none';
+      modalIframe.src = '';
+    }, 500);
+  });
+
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.remove('show');
+      setTimeout(() => {
+        modal.style.display = 'none';
+        modalIframe.src = '';
+      }, 500);
+    }
+  });
+
+
+
+
+
+
+    const canvas = document.getElementById("bgCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles = [];
+    for (let i = 0; i < 100; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 2,
+        dx: (Math.random() - 0.5) * 0.5,
+        dy: (Math.random() - 0.5) * 0.5
+      });
+    }
+
+    function animate() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#0ff";
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fill();
+        p.x += p.dx;
+        p.y += p.dy;
+        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+      });
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+
+
+    const watchBtn = document.getElementById('watchVideoBtn');
+const videoModal = document.getElementById('videoModal');
+const closeVideo = document.getElementById('closeVideoModal');
+const videoFrame = document.getElementById('videoFrame');
+
+// Open modal
+watchBtn.addEventListener('click', () => {
+  videoModal.style.display = 'flex';
+});
+
+// Close modal
+closeVideo.addEventListener('click', () => {
+  videoModal.style.display = 'none';
+  videoFrame.src = videoFrame.src; // Stop the video
+});
+
+// Close modal by clicking outside video content
+videoModal.addEventListener('click', (e) => {
+  if(e.target === videoModal){
+    videoModal.style.display = 'none';
+    videoFrame.src = videoFrame.src; // Stop the video
+  }
+});
+
+// Close modal with ESC key
+document.addEventListener('keydown', (e) => {
+  if(e.key === "Escape" && videoModal.style.display === 'flex'){
+    videoModal.style.display = 'none';
+    videoFrame.src = videoFrame.src; // Stop the video
+  }
+});
+
+</script>
+
+</body>
+</html>
