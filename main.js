@@ -201,7 +201,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // Create and configure background music
   const bgMusic = document.createElement("audio");
-  bgMusic.src = "images/1025.mp3"; // Replace with your file
+  bgMusic.src = "images/1025.MP3"; // Replace with your file
   bgMusic.loop = true;
   bgMusic.preload = "auto";
   bgMusic.volume = 0;
@@ -299,6 +299,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   projectCards.forEach(card => observer.observe(card));
 });
+
 
 
 
