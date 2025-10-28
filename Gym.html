@@ -1,0 +1,146 @@
+<!-- RedForge Gym - Expanded HTML, CSS & JavaScript -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RedForge Gym</title>
+  <style>
+    :root {
+      --red: #e50914;
+      --dark: #0b0b0d;
+      --light: #f5f5f5;
+    }
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #000, #0b0b0d);
+      color: var(--light);
+      line-height: 1.6;
+      overflow-x:hidden;
+    }
+    header {
+      position: fixed;
+      top:0; left:0; right:0;
+      display:flex; justify-content:space-between; align-items:center;
+      padding: 1rem 2rem;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      z-index:1000;
+    }
+    header h1 {color: var(--light); font-size:1.2rem;}
+    nav ul {display:flex; list-style:none; gap:1.5rem;}
+    nav ul li a {color: var(--light); text-decoration:none; transition:0.3s;}
+    nav ul li a:hover {color: var(--red);}
+    .menu-btn {display:none; cursor:pointer;}
+    .hero {
+      margin-top: 80px;
+      display:grid; grid-template-columns:1fr 1fr; gap:2rem;
+      align-items:center;
+      padding:2rem;
+      max-width:1200px; margin-inline:auto;
+    }
+    .hero img {width:100%; border-radius:1rem; transition:transform 0.3s;}
+    .hero img:hover {transform:scale(1.05);}
+    .btn {background: var(--red); color:#fff;margin-top: 20px; padding:0.75rem 1.5rem; border:none; border-radius:5px; cursor:pointer; transition:0.3s;}
+    .btn:hover {background:#b20710;}
+    section {padding:4rem 2rem; max-width:1200px; margin:auto;}
+    .features, .classes, .trainers, .pricing, .gallery, .qualities {display:grid; gap:2rem;}
+    .features {grid-template-columns:repeat(auto-fit,minmax(250px,1fr));}
+    .feature {background:#111; padding:1.5rem; border-radius:1rem; border:1px solid #222; transition:transform 0.3s;}
+    .feature:hover {transform:translateY(-6px);}
+    .classes {grid-template-columns:repeat(auto-fit,minmax(280px,1fr));}
+    .class-card {background:#111; padding:1.5rem; border-radius:1rem; border:1px solid #222;}
+    .pricing {grid-template-columns:repeat(auto-fit,minmax(250px,1fr));}
+    .plan {background:#111; padding:2rem; border-radius:1rem; border:1px solid #222; transition:transform 0.3s;}
+    .plan:hover {transform:scale(1.05);}
+    .gallery {grid-template-columns:repeat(auto-fit,minmax(250px,1fr));}
+    .gallery img {width:100%; border-radius:1rem; height:200px; object-fit:cover; transition:transform 0.3s;}
+    .gallery img:hover {transform:scale(1.05);}
+    .qualities {grid-template-columns:repeat(auto-fit,minmax(250px,1fr));}
+    .quality {background:#111; padding:1.5rem; border-radius:1rem; border:1px solid #222;}
+    footer {background:#000; padding:2rem; text-align:center; color:#666; font-size:0.9rem;}
+    /* Responsive */
+    @media(max-width:768px){
+      .hero {grid-template-columns:1fr; align-items: center; text-align: center;}
+      nav ul {display:none; flex-direction:column; background:#111; position:absolute; top:70px; right:0; width:200px; padding:1rem;}
+      nav ul.show {display:flex;}
+      .menu-btn {display:block; color:white;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>RedForge Gym</h1>
+    <nav>
+      <div class="menu-btn">☰</div>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#importance">Fitness</a></li>
+        <li><a href="#qualities">Why Us</a></li>
+        <li><a href="#classes">Classes</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h2 style="font-size:2.5rem;">Forge your body with <span style="color:var(--red);">intensity</span></h2>
+      <p>Premium training, elite coaches, and a community that pushes you forward.</p>
+      <button class="btn">Join Now</button>
+    </div>
+    <img src="https://images.unsplash.com/photo-1721394747060-7cfc57104f88?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Gym">
+  </section>
+
+  <section id="importance">
+    <h2>Importance of Fitness</h2>
+    <p>Fitness is not just about muscles, it’s about health, balance, and confidence. Regular training improves mental health, builds resilience, and boosts energy levels for everyday life.</p>
+  </section>
+
+  <section id="qualities" class="qualities">
+    <div class="quality"><h3>Expert Coaches</h3><p>Our trainers bring years of professional experience to guide your journey.</p></div>
+    <div class="quality"><h3>Modern Facilities</h3><p>State-of-the-art equipment and recovery spaces for optimal results.</p></div>
+    <div class="quality"><h3>Supportive Community</h3><p>Train with people who share your goals and inspire you daily.</p></div>
+  </section>
+
+  <section class="features">
+    <div class="feature"><h3>🏋️ Equipment</h3><p>Olympic platforms, sleds, machines and free weights.</p></div>
+    <div class="feature"><h3>❄️ Recovery</h3><p>Sauna, cold plunge, and mobility lounge.</p></div>
+    <div class="feature"><h3>🥗 Nutrition</h3><p>Meal plans to match your goals.</p></div>
+  </section>
+
+  <section id="classes" class="classes">
+    <div class="class-card"><h4>HIIT Blast</h4><p>06:00 - 07:00 • Advanced</p></div>
+    <div class="class-card"><h4>Strength Forge</h4><p>09:00 - 10:00 • All Levels</p></div>
+    <div class="class-card"><h4>Core & Mobility</h4><p>18:00 - 19:00 • All Levels</p></div>
+  </section>
+
+  <section id="pricing" class="pricing">
+    <div class="plan"><h4>Starter</h4><p>$29/mo</p></div>
+    <div class="plan"><h4>Standard</h4><p>$49/mo</p></div>
+    <div class="plan"><h4>Forge Pro</h4><p>$89/mo</p></div>
+  </section>
+
+  <section id="gallery" class="gallery">
+    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Workout">
+    <img src="https://images.unsplash.com/photo-1609674248079-e9242e48c06b?q=80&w=874&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Weights">
+    <img src="https://images.unsplash.com/photo-1721394749382-223a18ce8bb9?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Cardio">
+    <img src="https://images.unsplash.com/photo-1721394747060-7cfc57104f88?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Gym room">
+  </section>
+
+  <footer>
+    <p>© <span id="year"></span> RedForge Gym</p>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    const menuBtn = document.querySelector('.menu-btn');
+    const navLinks = document.querySelector('nav ul');
+    menuBtn.addEventListener('click', ()=>{
+      navLinks.classList.toggle('show');
+    });
+  </script>
+</body>
+</html>
