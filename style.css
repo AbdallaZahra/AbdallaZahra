@@ -1445,7 +1445,7 @@ h1, h2, h3, h4, h5, h6 {
       transform: translateY(-150px) rotateX(90deg) scale(0.5);
       animation: drop 1.6s ease-out forwards;
       /* 2-second global delay */
-      animation-delay: 3s;
+      animation-delay: 4s;
     }
 
     @keyframes drop {
@@ -1467,13 +1467,13 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     /* each letter color + staggered delay starting after 2 seconds */
-    .welcome span:nth-child(1) { color: #00bcd1; animation-delay: 3s; }
-    .welcome span:nth-child(2) { color: #0789fb; animation-delay: 3.2s; }
-    .welcome span:nth-child(3) { color: #00035b; animation-delay: 3.4s; }
-    .welcome span:nth-child(4) { color: #007fa2; animation-delay: 3.6s; }
-    .welcome span:nth-child(5) { color: #3a86ff; animation-delay: 3.8s; }
-    .welcome span:nth-child(6) { color: #1a0067; animation-delay: 4s; }
-    .welcome span:nth-child(7) { color: #118ab2; animation-delay: 4.2s; }
+    .welcome span:nth-child(1) { color: #00bcd1; animation-delay: 4s; }
+    .welcome span:nth-child(2) { color: #0789fb; animation-delay: 4.2s; }
+    .welcome span:nth-child(3) { color: #00035b; animation-delay: 4.4s; }
+    .welcome span:nth-child(4) { color: #007fa2; animation-delay: 4.6s; }
+    .welcome span:nth-child(5) { color: #3a86ff; animation-delay: 4.8s; }
+    .welcome span:nth-child(6) { color: #1a0067; animation-delay: 5s; }
+    .welcome span:nth-child(7) { color: #118ab2; animation-delay: 5.2s; }
 
     
     /* For tablets */
@@ -1536,4 +1536,5 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0.2rem 0.4rem;  /* Bigger for touch targets */
     font-size: 1.6rem;     /* Easier to see & tap */
     
+
   }}
