@@ -173,7 +173,7 @@ window.addEventListener("scroll", () => {
     if (window.__bg_music_initialized__) return;
     window.__bg_music_initialized__ = !0;
     const n = document.createElement("audio");
-    (n.src = "images/1025.mp3"),
+    (n.src = "images/1025.MP3"),
       (n.loop = !0),
       (n.preload = "auto"),
       (n.volume = 0),
@@ -220,3 +220,4 @@ window.addEventListener("scroll", () => {
       );
     e.forEach((e) => t.observe(e));
   });
+
