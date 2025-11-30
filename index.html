@@ -30,7 +30,13 @@
       href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+   <link
+      rel="preload"
+      href="style.css"
+      as="style"
+      onload="this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="style.css" /></noscript>
   </head>
   <body>
     <div class="intro-line">
@@ -226,5 +232,9 @@
     <button onclick="scrollToTop()" class="scroll-top">↑</button>
     <footer>&copy; 2025 Abdalla Zahra. All rights reserved.</footer>
     <script src="main.js" defer></script>
+     <script type="module" src="main.modern.js"></script>
+    <script nomodule src="main.legacy.js"></script>
+    <script defer src="analytics.js"></script>
   </body>
 </html>
+
