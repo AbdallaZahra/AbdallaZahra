@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Abdalla Zahra | Front-End Developer</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@300;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-..."
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/x-icon" href="images/pumpkin.webp" />
+
+    <link rel="preload" as="image" href="images/11430160.webp" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="intro-line">
+      Welcome to the portfolio of Abdalla Zahra — Web Developer and Designer
+    </div>
+    <div class="rocket-line">flying into creativity — enjoy the ride!</div>
+    <button id="music-toggle">🔊</button><canvas id="bgCanvas"></canvas>
+    <header class="impact-section glow-bg hero-section">
+      <div class="welcome">
+        <span>W</span> <span>E</span> <span>L</span> <span>C</span>
+        <span>O</span> <span>M</span> <span>E</span>
+      </div>
+      <div class="hero-content">
+        <h1 class="hero-title">
+          I'm <span class="highlight shimmer">Abdalla Zahra</span>
+        </h1>
+        <p class="hero-subtitle">Web Developer & Designer</p>
+      </div>
+      <div class="particles"></div>
+    </header>
+    <!-- Rocket + Flame -->
+    <div class="rocket-container" id="rocket">
+      <img src="images/11430160.webp" alt="Rocket" class="rocket" />
+    </div>
+    <audio
+      id="rocketSound"
+      src="images/mixkit-rocket-landing-whoosh-1721.wav"
+      preload="auto"
+    ></audio>
+    <div id="ship1" class="ship">
+      <img src="images/11430160.webp" alt="rocket" />
+    </div>
+    <div id="ship2" class="ship">
+      <img src="images/11430160.webp" alt="rocket" />
+    </div>
+    <!-- Portfolio Section -->
+    <section class="hero" id="portfolio">
+      <section class="section portfolio-section fade-in">
+        <h2 class="section-title">Projects</h2>
+        <div class="projects-grid">
+          <!-- Project 1 -->
+          <div class="project-card">
+            <a href="clones.html" target="_blank"
+              ><div class="project-icon">🌐</div>
+              <h3>Famous Website Clones</h3>
+              <p>
+                Recreated platforms like <strong>Netflix</strong>, and
+                <strong>Amazon</strong>.
+              </p></a
+            >
+          </div>
+          <!-- Project 2 -->
+          <div class="project-card">
+            <a href="clients.html" target="_blank"
+              ><div class="project-icon">💼</div>
+              <h3>Client Projects</h3>
+              <p>
+                Developed demo websites for <strong>different services</strong>,
+              </p></a
+            >
+          </div>
+          <!-- Project 3 -->
+          <div class="project-card">
+            <a href="#" target="_blank"
+              ><div class="project-icon">📄</div>
+              <h3>CV Showcase</h3>
+              <p>
+                A personal hub that highlights my <strong>background</strong>
+              </p></a
+            >
+          </div>
+        </div>
+      </section>
+    </section>
+    <section class="impact-section glow-bg" class="contact fade-in">
+      <section class="contact">
+        <h2>Contact Me</h2>
+        <form id="contact-form">
+          <input
+            type="text"
+            name="from_name"
+            placeholder="Your Name"
+            required
+          />
+          <input
+            type="email"
+            name="reply_to"
+            placeholder="Your Email"
+            required
+          />
+          <textarea
+            name="message"
+            placeholder="Your Message"
+            rows="5"
+            required
+          ></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+        <!-- EmailJS script -->
+        <script
+          type="text/javascript"
+          src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"
+        ></script>
+        <script type="text/javascript">
+          emailjs.init("8IMPfSLqDyasVzGsA"),
+            document
+              .getElementById("contact-form")
+              .addEventListener("submit", function (e) {
+                e.preventDefault(),
+                  emailjs
+                    .sendForm("service_s8w4z6v", "template_pyrwa4f", this)
+                    .then(
+                      function () {
+                        alert("Message sent successfully!"),
+                          document.getElementById("contact-form").reset();
+                      },
+                      function (e) {
+                        alert(
+                          "Failed to send message. Error: " + JSON.stringify(e)
+                        );
+                      }
+                    );
+              });
+        </script>
+        <div class="socials">
+          <a class="whats" href="https://wa.me/201097554612" target="_blank"
+            ><i class="fab fa-whatsapp"></i> WhatsApp</a
+          >
+          <a class="email" href="my email.html" target="_blank"
+            ><i class="fas fa-envelope"></i> My Email</a
+          >
+          <a
+            class="insta"
+            href="https://www.instagram.com/abdlla_zahra/?next=%2F"
+            target="_blank"
+            ><i class="fab fa-instagram"></i> Instagram</a
+          >
+        </div>
+      </section>
+    </section>
+    <section class="tech-stack fade-in">
+      <section class="tech-stack">
+        <h2>Tech Stack</h2>
+        <div class="tech-icons">
+          <i class="fab fa-html5" title="HTML5"></i>
+          <i class="fab fa-css3-alt" title="CSS3"></i>
+          <i class="fab fa-js-square" title="JavaScript"></i>
+          <i class="fab fa-python" title="Python"></i>
+          <i class="fab fa-react" title="React"></i>
+          <i class="fab fa-github" title="GitHub"></i>
+        </div>
+      </section>
+    </section>
+    <section class="code-showcase fade-in">
+      <section class="code-magic">
+        <h2>Welcome to My Code Kingdom</h2>
+        <div class="fake-terminal"><pre id="code-output"></pre></div>
+      </section>
+      <section class="code-fly">
+        <h2>
+          "Code is the closest thing we have to magic.
+          <h2>
+            Write it well,
+            <h2>and it becomes timeless."</h2>
+            <div class="code-particles" id="codeParticles"></div>
+          </h2>
+        </h2>
+      </section>
+    </section>
+    <section class="impact-section glow-bg" class="impact-section">
+      <div class="impact-content fade-in">
+        <div class="impact-right fade-in">
+          <div class="skills-grid">
+            <div class="skill-box">
+              <div class="skill-icon">🖥️</div>
+              <h4>Front-End Development</h4>
+            </div>
+            <div class="skill-box">
+              <div class="skill-icon">💡</div>
+              <h4>Back-End Development</h4>
+            </div>
+            <div class="skill-box">
+              <div class="skill-icon">🚀</div>
+              <h4>Launch-Ready Web Projects</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="bye-section">
+      <h2>Thanks for Visiting <span class="wave">👋</span></h2>
+    </section>
+    <button onclick="scrollToTop()" class="scroll-top">↑</button>
+    <footer>&copy; 2025 Abdalla Zahra. All rights reserved.</footer>
+    <script src="main.js" defer></script>
+  </body>
+</html>

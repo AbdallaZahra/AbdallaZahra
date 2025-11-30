@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clients Projects</title>
+  </head>
+  <body>
+    <header>
+      <a href="index.html" class="back-btn">← Back to Home</a>
+    </header>
+    <canvas id="bgCanvas"></canvas>
+
+    <div class="project-section">
+      <h1>Clients Projects</h1>
+      <p class="subtitle">Demo projects designed for different services</p>
+    </div>
+
+    <main>
+      <!-- Project 3 -->
+      <section class="project-card">
+        <img
+          src="images/Screenshot 2025-09-27 132900.webp"
+          alt="E-commerce Website"
+        />
+        <div class="project-info">
+          <h2>E-commerce clothing Store</h2>
+          <p>
+            Clothing e-commerce demo website with product categories, cart
+            system, and responsive shopping experience.
+          </p>
+          <a href="#" class="view-btn" data-link="clothing.html"
+            >View Project</a
+          >
+        </div>
+      </section>
+      <!-- Project 2 -->
+      <section class="project-card">
+        <img src="images/Screenshot 2025-09-24 171139.webp" alt="Gym website" />
+        <div class="project-info">
+          <h2>Gym Website</h2>
+          <p>
+            A demo website hompage featuring bold visuals, fitness-focused
+            sections, and interactive effects. It highlights gym qualities,
+            fitness importance, and membership options with engaging layouts.
+          </p>
+          <a href="#" class="view-btn" data-link="Gym.html">View Project</a>
+        </div>
+      </section>
+      <!-- Project 1 -->
+      <section class="project-card">
+        <img
+          src="images/Screenshot 2025-09-27 134843.webp"
+          alt="Restaurant Website"
+        />
+        <div class="project-info">
+          <h2>koshari Website</h2>
+          <p>
+            Demo of an Egyption koahri restaurant, showing my ability to
+            minipulate and customize layouts in accordance with the product
+            displayed.
+          </p>
+          <a href="#" class="view-btn" data-link="koshari.html">View Project</a>
+        </div>
+      </section>
+    </main>
+    <div id="project-popup" class="popup">
+      <div class="popup-content">
+        <button class="close-btn">&times;</button>
+        <iframe src="" frameborder="0"></iframe>
+      </div>
+    </div>
+
+    <script>
+      const popup = document.getElementById("project-popup");
+      const popupIframe = popup.querySelector("iframe");
+      const closeBtn = popup.querySelector(".close-btn");
+
+      document.querySelectorAll(".view-btn").forEach((button) => {
+        button.addEventListener("click", (e) => {
+          e.preventDefault();
+          const link = button.getAttribute("data-link");
+          popupIframe.src = link;
+          popup.style.display = "flex";
+        });
+      });
+
+      closeBtn.addEventListener("click", () => {
+        popup.style.display = "none";
+        popupIframe.src = ""; // reset iframe to stop page loading
+      });
+
+      // Close when clicking outside
+      popup.addEventListener("click", (e) => {
+        if (e.target === popup) {
+          popup.style.display = "none";
+          popupIframe.src = "";
+        }
+      });
+
+      const canvas = document.getElementById("bgCanvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const particles = [];
+      for (let i = 0; i < 100; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 2,
+          dx: (Math.random() - 0.5) * 0.5,
+          dy: (Math.random() - 0.5) * 0.5,
+        });
+      }
+
+      function animate() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#0ff";
+        particles.forEach((p) => {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fill();
+          p.x += p.dx;
+          p.y += p.dy;
+          if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+          if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+        });
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+
+      window.addEventListener("resize", () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+    </script>
+  </body>
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      color: #fff;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle at 20% 30%, #0f0f0f, #000);
+      height: 185vh;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+    header {
+      text-align: center;
+      padding: 2rem;
+      color: #0ff;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin: 0.5rem 0;
+    }
+    .project-section {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .project-section h1 {
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      color: rgb(255, 255, 255);
+      text-shadow: 0 0 10px rgb(50, 159, 255);
+    }
+
+    .subtitle {
+      color: #d2d2d2;
+      font-size: 1.1rem;
+    }
+
+    .back-btn {
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      background: #0ff;
+      color: #000;
+      padding: 0.4rem 1rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .back-btn:hover {
+      background: #00cccc;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      padding: 3rem 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .project-card {
+      display: flex;
+      flex-direction: row;
+      gap: 2rem;
+      background: #1a1a1a;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+    }
+
+    .project-card img {
+      width: 55%;
+      object-fit: cover;
+    }
+
+    .project-info {
+      padding: 0rem 2rem 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .project-info h2 {
+      color: #0ff;
+      margin-bottom: 1rem;
+    }
+    .project-info p {
+      color: #ccc;
+      margin-bottom: 1.5rem;
+    }
+    .view-btn {
+      align-self: flex-start;
+      background: #0ff;
+      color: #000;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .view-btn:hover {
+      background: #00cccc;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .project-card {
+        flex-direction: column;
+      }
+      .project-card img {
+        width: 100%;
+        height: auto;
+      }
+      .project-info p {
+        font-size: 0.95rem;
+      }
+      .project-section h1 {
+        font-size: 2rem;
+      }
+      .back-btn {
+        padding: 0.5rem 0.7rem;
+      }
+    }
+    /* Popup Overlay */
+    .popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .popup-content {
+      position: relative;
+      background: #fff;
+      width: 90%;
+      height: 90%;
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .popup-content iframe {
+      flex: 1;
+      width: 100%;
+      border: none;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 2rem;
+      background: transparent;
+      border: none;
+      color: #000;
+      cursor: pointer;
+      z-index: 10;
+    }
+  </style>
+</html>
