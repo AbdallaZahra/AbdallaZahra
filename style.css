@@ -7,7 +7,7 @@
 .code-fly h2,
 body,
 header h1 {
-  font-family: Orbitron, sans-serif;
+  font-family: Orbitron;
 }
 .code-magic,
 .code-particle {
@@ -1328,5 +1328,6 @@ canvas {
     font-size: 1.6rem;
   }
 }
+
 
 
