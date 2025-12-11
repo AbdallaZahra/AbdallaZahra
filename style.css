@@ -269,6 +269,7 @@ header p {
   padding: 0.1rem 0.5rem 0.5rem;
   background: #0e0d0d;
   margin-top: 15vh;
+   text-align: center;
 }
 .tech-stack h2 {
   font-size: 3rem;
@@ -281,6 +282,9 @@ header p {
   gap: 3rem;
   max-width: 1000px;
   margin: 0 auto 3rem;
+  justify-items: center;    
+  justify-content: center;  
+  text-align: center;
 }
 .tech-icons i {
   font-size: 7rem;
@@ -1325,6 +1329,7 @@ canvas {
     font-size: 1.6rem;
   }
 }
+
 
 
 
