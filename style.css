@@ -272,7 +272,7 @@ header p {
   font-size: 3rem;
   color: #0ff;
 }
-tech-icons {
+.tech-icons {
   padding: 2rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -1323,6 +1323,7 @@ canvas {
     font-size: 1.6rem;
   }
 }
+
 
 
 
