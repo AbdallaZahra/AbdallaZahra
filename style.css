@@ -350,6 +350,7 @@ footer {
   z-index: 2;
   color: #0ff;
   margin-bottom: 2rem;
+  text-align:center;
 }
 .code-particles {
   position: absolute;
@@ -1329,6 +1330,7 @@ canvas {
     font-size: 1.6rem;
   }
 }
+
 
 
 
