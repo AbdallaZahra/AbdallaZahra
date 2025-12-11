@@ -272,7 +272,7 @@ header p {
   font-size: 3rem;
   color: #0ff;
 }
-.tech-icons {
+tech-icons {
   padding: 2rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -284,33 +284,28 @@ header p {
   font-size: 7rem;
   color: #fff;
   transition: transform 0.3s, color 0.3s, text-shadow 0.3s;
+  cursor: pointer;
 }
+
+/* Hover effects: color + size increase */
+.tech-icons i:hover {
+  transform: scale(1.25);
+}
+
+/* Individual hover colors */
+.fa-html5:hover    { color: #e34c26; }
+.fa-css3-alt:hover { color: #1572b6; }
+.fa-js:hover       { color: #f7df1e; }
+.fa-python:hover   { color: #3776ab; }
+.fa-react:hover    { color: #61dafb; }
+.fa-github:hover   { color: #999; }
+
 .code-fly h2,
 .code-magic h2 {
   font-size: 3rem;
   text-shadow: 0 0 20px #0ff;
 }
-.tech-icons i:hover {
-  transform: scale(1.2);
-}
-.fab.fa-html5:hover {
-  color: #e34f26;
-}
-.fab.fa-css3-alt:hover {
-  color: #1572b6;
-}
-.fab.fa-js-square:hover {
-  color: #f7df1e;
-}
-.fab.fa-python:hover {
-  color: #ffd43b;
-}
-.fab.fa-react:hover {
-  color: #61dbfb;
-}
-.fab.fa-github:hover {
-  color: #4078c0;
-}
+
 .code-magic {
   padding: 10rem 0 0;
   color: #0ff;
@@ -1328,6 +1323,7 @@ canvas {
     font-size: 1.6rem;
   }
 }
+
 
 
 
