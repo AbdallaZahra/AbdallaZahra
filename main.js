@@ -156,7 +156,7 @@ window.addEventListener("scroll", () => {
         ? 0
         : Math.max(0, Math.min(1, e));
     }
-    function t(t = 0.6, i = 0.02, d = 100) {
+    function t(t = 0.06, i = 0.01, d = 100) {
       if (a || !n) return;
       (a = !0),
         n.play().catch((e) => console.warn("bgMusic.play() failed:", e)),
@@ -173,7 +173,7 @@ window.addEventListener("scroll", () => {
     if (window.__bg_music_initialized__) return;
     window.__bg_music_initialized__ = !0;
     const n = document.createElement("audio");
-    (n.src = "images/1025.MP3"),
+    (n.src = "images/1025.mp3"),
       (n.loop = !0),
       (n.preload = "auto"),
       (n.volume = 0),
@@ -220,4 +220,5 @@ window.addEventListener("scroll", () => {
       );
     e.forEach((e) => t.observe(e));
   });
+
 
