@@ -177,21 +177,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const overlay = document.createElement("div");
   overlay.textContent = "Tap to launch the rocket 🚀";
-  overlay.style.cssText = `
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.8);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: sans-serif;
-    cursor: pointer;
-    z-index: 9999;
-    text-align: center;
-    padding: 1.5rem
-    font-size: 1.6rem;
-  `;
+overlay.style.cssText = `
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: sans-serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+  padding: 2rem;
+  cursor: pointer;
+  z-index: 9999;
+`;
+
 
   document.body.appendChild(overlay);
 
@@ -277,6 +280,7 @@ window.addEventListener("load", () => {
       }, 5000);
   });
 });
+
 
 
 
