@@ -189,7 +189,8 @@ document.addEventListener("DOMContentLoaded", () => {
     cursor: pointer;
     z-index: 9999;
     text-align: center;
-    padding: 1.5rem;
+    padding: 1.5rem
+    font-size: 1.6rem;
   `;
 
   document.body.appendChild(overlay);
@@ -276,6 +277,7 @@ window.addEventListener("load", () => {
       }, 5000);
   });
 });
+
 
 
 
