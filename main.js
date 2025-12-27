@@ -228,7 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
   window.__bg_music_initialized__ = true;
 
   const music = document.createElement("audio");
-  music.src = "images/1025.mp3";
+  music.src = "images/1025.MP3";
   music.loop = true;
   music.volume = 0;
   document.body.appendChild(music);
@@ -280,6 +280,7 @@ window.addEventListener("load", () => {
       }, 5000);
   });
 });
+
 
 
 
