@@ -10,7 +10,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("/fonts/bebas-neue-v16-latin-regular.woff2") format("woff2");
+  src: url("/Fonts/bebas-neue-v16-latin-regular.woff2") format("woff2");
 }
 
 /* Orbitron */
@@ -19,7 +19,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("/fonts/orbitron-v35-latin-regular.woff2") format("woff2");
+  src: url("/Fonts/orbitron-v35-latin-regular.woff2") format("woff2");
 }
 
 @font-face {
@@ -27,7 +27,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("/fonts/orbitron-v35-latin-700.woff2") format("woff2");
+  src: url("/Fonts/orbitron-v35-latin-700.woff2") format("woff2");
 }
 }
 .code-fly h2,
@@ -1358,6 +1358,7 @@ canvas {
 .hero h3 {
   font-size: 1.5rem;
 }
+
 
 
 
