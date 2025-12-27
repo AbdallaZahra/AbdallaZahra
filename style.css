@@ -1129,21 +1129,6 @@ canvas {
   color: #00e6ff;
   position: relative;
 }
-.shimmer {
-  background: linear-gradient(90deg, #00e6ff, #fff, #00e6ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: 200% auto;
-  animation: 4s linear infinite shimmerMove;
-}
-@keyframes shimmerMove {
-  0% {
-    background-position: 0 center;
-  }
-  100% {
-    background-position: 200% center;
-  }
-}
 .hero-subtitle {
   font-size: 1.4rem;
   color: #aef8ff;
@@ -1358,6 +1343,7 @@ canvas {
 .hero h3 {
   font-size: 1.5rem;
 }
+
 
 
 
