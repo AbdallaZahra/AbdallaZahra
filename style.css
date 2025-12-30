@@ -306,6 +306,7 @@ header p {
   gap: 3rem;
   max-width: 1000px;
   margin: 0 auto 3rem;
+  place-items: center;
 }
 .tech-icons i {
   font-size: 7rem;
@@ -1264,4 +1265,5 @@ canvas {
 .hero h3 {
   font-size: 1.5rem;
 }
+
 
