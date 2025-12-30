@@ -3,28 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Abdalla Zahra | Front-End Developer</title>
-   <!-- Preconnect -->
- <link rel="preconnect" href="https://abdalla-zahra.vercel.app" defer />
 
-    <link
-      rel="stylesheet"
-      href="style.css"
-      media="print"
-      onload="this.media='all'"
-    />
+    <title>Abdalla Zahra | Front-End Developer</title>
+
+    <link rel="preconnect" href="https://abdalla-zahra.vercel.app" />
+
+    <!-- Async CSS -->
+    <link rel="stylesheet" href="style.css" />
+    <noscript><link rel="stylesheet" href="style.css" /></noscript>
 
     <link rel="icon" type="image/x-icon" href="images/pumpkin.webp" />
 
-    <link as="image" href="images/11430160.webp" />
+    <!-- Correct image preload -->
+    <link rel="preload" as="image" href="images/11430160.webp" />
+
+    <!-- Font Awesome (ONLY ONCE, non-blocking) -->
+    <script
+      src="https://kit.fontawesome.com/0a72e85e24.js"
+      crossorigin="anonymous"
+      defer
+    ></script>
   </head>
+
   <body>
     <div class="intro-line">
       Welcome to the portfolio of Abdalla Zahra — Web Developer and Designer
     </div>
     <div class="rocket-line">flying into creativity — enjoy the ride!</div>
-    <button id="music-toggle">🔊</button><canvas id="bgCanvas"></canvas>
+
+    <button id="music-toggle">🔊</button>
+    <canvas id="bgCanvas"></canvas>
+
     <header class="impact-section glow-bg hero-section">
       <div class="welcome">
         <span>W</span> <span>E</span> <span>L</span> <span>C</span>
@@ -37,65 +46,71 @@
         <p class="hero-subtitle">Web Developer & Designer</p>
       </div>
     </header>
-    <!-- Rocket + Flame -->
+
+    <!-- Rocket -->
     <div class="rocket-container" id="rocket">
       <img src="images/11430160.webp" alt="Rocket" class="rocket" />
     </div>
+
     <audio
       id="rocketSound"
       src="images/mixkit-rocket-landing-whoosh-1721.mp3"
       preload="auto"
     ></audio>
     <script>
-      const rocketSound = document.getElementById("rocketSound");
-      rocketSound.volume = 0.1; // change 0.2 to whatever volume you want
+      document.getElementById("rocketSound").volume = 0.1;
     </script>
+
     <div id="ship1" class="ship">
       <img src="images/11430160.webp" alt="rocket" />
     </div>
     <div id="ship2" class="ship">
       <img src="images/11430160.webp" alt="rocket" />
     </div>
-    <!-- Portfolio Section -->
+
+    <!-- Portfolio -->
     <section class="hero" id="portfolio">
       <section class="section portfolio-section fade-in">
         <h2 class="section-title">Projects</h2>
         <div class="projects-grid">
-          <!-- Project 1 -->
           <div class="project-card">
-            <a href="clones.html" target="_blank"
-              ><div class="project-icon">🌐</div>
+            <a href="clones.html" target="_blank">
+              <div class="project-icon">🌐</div>
               <h3>Famous Website Clones</h3>
               <p>
-                Recreated platforms like <strong>Netflix</strong>, and
+                Recreated platforms like <strong>Netflix</strong> and
                 <strong>Amazon</strong>.
-              </p></a
-            >
+              </p>
+            </a>
           </div>
-          <!-- Project 2 -->
+
           <div class="project-card">
-            <a href="clients.html" target="_blank"
-              ><div class="project-icon">💼</div>
+            <a href="clients.html" target="_blank">
+              <div class="project-icon">💼</div>
               <h3>Client Projects</h3>
               <p>
-                Developed demo websites for <strong>different services</strong>,
-              </p></a
-            >
+                Developed demo websites for
+                <strong>different services</strong>,
+              </p>
+            </a>
           </div>
-          <!-- Project 3 -->
+
           <div class="project-card">
-            <a href="#" target="_blank"
-              ><div class="project-icon">📄</div>
+            <a href="#">
+              <div class="project-icon">📄</div>
               <h3>CV Showcase</h3>
               <p>
-                A personal hub that highlights my <strong>background</strong>
-              </p></a
-            >
+                A personal hub that highlights my
+                <strong>background</strong>
+              </p>
+            </a>
           </div>
         </div>
       </section>
     </section>
-    <section class="impact-section glow-bg" class="contact fade-in">
+
+    <!-- Contact -->
+    <section class="impact-section glow-bg contact fade-in">
       <section class="contact">
         <h2>Contact Me</h2>
         <form id="contact-form">
@@ -119,48 +134,26 @@
           ></textarea>
           <button type="submit">Send Message</button>
         </form>
-        <!-- EmailJS script -->
-        <script
-          type="text/javascript"
-          src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"
-        defer></script>
-        <script type="text/javascript">
-          emailjs.init("8IMPfSLqDyasVzGsA"),
-            document
-              .getElementById("contact-form")
-              .addEventListener("submit", function (e) {
-                e.preventDefault(),
-                  emailjs
-                    .sendForm("service_s8w4z6v", "template_pyrwa4f", this)
-                    .then(
-                      function () {
-                        alert("Message sent successfully!"),
-                          document.getElementById("contact-form").reset();
-                      },
-                      function (e) {
-                        alert(
-                          "Failed to send message. Error: " + JSON.stringify(e)
-                        );
-                      }
-                    );
-              });
-        </script>
+
         <div class="socials">
-          <a class="whats" href="https://wa.me/201097554612" target="_blank"
-            ><i class="fab fa-whatsapp"></i> WhatsApp</a
-          >
-          <a class="email" href="my email.html" target="_blank"
-            ><i class="fas fa-envelope"></i> My Email</a
-          >
+          <a class="whats" href="https://wa.me/201097554612" target="_blank">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+          </a>
+          <a class="email" href="my email.html" target="_blank">
+            <i class="fas fa-envelope"></i> My Email
+          </a>
           <a
             class="insta"
             href="https://www.instagram.com/abdlla_zahra/?next=%2F"
             target="_blank"
-            ><i class="fab fa-instagram"></i> Instagram</a
           >
+            <i class="fab fa-instagram"></i> Instagram
+          </a>
         </div>
       </section>
     </section>
+
+    <!-- Tech Stack -->
     <section class="tech-stack fade-in">
       <section class="tech-stack">
         <h2>Tech Stack</h2>
@@ -174,23 +167,25 @@
         </div>
       </section>
     </section>
+
+    <!-- Code Showcase -->
     <section class="code-showcase fade-in">
       <section class="code-magic">
         <h2>Welcome to My Code Kingdom</h2>
-        <div class="fake-terminal"><pre id="code-output"></pre></div>
+        <div class="fake-terminal">
+          <pre id="code-output"></pre>
+        </div>
       </section>
+
       <section class="code-fly">
-        <h2>
-          "Code is the closest thing we have to magic.
-          <h2>
-            Write it well,
-            <h2>and it becomes timeless."</h2>
-            <div class="code-particles" id="codeParticles"></div>
-          </h2>
-        </h2>
+        <h2>"Code is the closest thing we have to magic.</h2>
+        <h2>Write it well,</h2>
+        <h2>and it becomes timeless."</h2>
+        <div class="code-particles" id="codeParticles"></div>
       </section>
     </section>
-    <section class="impact-section glow-bg" class="impact-section">
+
+    <section class="impact-section glow-bg">
       <div class="impact-content fade-in">
         <div class="impact-right fade-in">
           <div class="skills-grid">
@@ -210,42 +205,39 @@
         </div>
       </div>
     </section>
+
     <section class="bye-section">
       <h2>Thanks for Visiting <span class="wave">👋</span></h2>
     </section>
+
     <button onclick="scrollToTop()" class="scroll-top">↑</button>
     <footer>&copy; 2025 Abdalla Zahra. All rights reserved.</footer>
+
     <script src="main.js" defer></script>
-        <script>
-  window.addEventListener('load', () => {
-    const s = document.createElement('script');
-    s.src = 'https://kit.fontawesome.com/0a72e85e24.js';
-    s.crossOrigin = 'anonymous';
-    document.body.appendChild(s);
-  });
-</script>
+
+    <!-- EmailJS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"
+      defer
+    ></script>
+    <script defer>
+      window.addEventListener("DOMContentLoaded", () => {
+        emailjs.init("8IMPfSLqDyasVzGsA");
+        document
+          .getElementById("contact-form")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+            emailjs.sendForm("service_s8w4z6v", "template_pyrwa4f", this).then(
+              () => {
+                alert("Message sent successfully!");
+                this.reset();
+              },
+              () => {
+                alert("Failed to send message.");
+              }
+            );
+          });
+      });
+    </script>
   </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
