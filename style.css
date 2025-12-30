@@ -1,8 +1,8 @@
-
 .intro-line,
 .rocket-line {
   color: #000;
   white-space: nowrap;
+  /* Match fallback fonts to webfonts to prevent layout shift */
 }
 /* Bebas Neue */
 @font-face {
@@ -10,7 +10,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("/Fonts/bebas-neue-v16-latin-regular.woff2") format("woff2");
+  src: url("/fonts/bebas-neue-v16-latin-regular.woff2") format("woff2");
 }
 
 /* Orbitron */
@@ -19,7 +19,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("/Fonts/orbitron-v35-latin-regular.woff2") format("woff2");
+  src: url("/fonts/orbitron-v35-latin-regular.woff2") format("woff2");
 }
 
 @font-face {
@@ -27,13 +27,13 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("/Fonts/orbitron-v35-latin-700.woff2") format("woff2");
+  src: url("/fonts/orbitron-v35-latin-700.woff2") format("woff2");
 }
-}
+
 .code-fly h2,
 body,
 header h1 {
-  font-family: Orbitron;
+  font-family: Orbitron, sans-serif;
 }
 .code-magic,
 .code-particle {
@@ -59,7 +59,6 @@ header {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Orbitron;
 }
 body {
   font-weight: 400;
@@ -68,7 +67,6 @@ body {
   overflow-x: hidden;
 }
 .contact button,
-.hero-title,
 .intro-line,
 .rocket-line,
 h1,
@@ -177,14 +175,6 @@ header h1 {
   color: #0ff;
   animation: 2s infinite alternate glow;
 }
-.socials a i,
-header p {
-  font-size: 1.2rem;
-}
-header p {
-  color: #ccc;
-  margin-top: 1rem;
-}
 @keyframes glow {
   from {
     text-shadow: 0 0 5px #0ff;
@@ -193,6 +183,15 @@ header p {
     text-shadow: 0 0 20px #0ff, 0 0 30px #0ff;
   }
 }
+.socials a i,
+header p {
+  font-size: 1.2rem;
+}
+header p {
+  color: #ccc;
+  margin-top: 1rem;
+}
+
 .section {
   padding: 5rem 2rem;
 }
@@ -213,6 +212,7 @@ header p {
   transform: scale(1.05);
   box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
 }
+
 .email:hover,
 .insta:hover,
 .whats:hover {
@@ -294,7 +294,6 @@ header p {
   padding: 0.1rem 0.5rem 0.5rem;
   background: #0e0d0d;
   margin-top: 15vh;
-   text-align: center;
 }
 .tech-stack h2 {
   font-size: 3rem;
@@ -307,34 +306,34 @@ header p {
   gap: 3rem;
   max-width: 1000px;
   margin: 0 auto 3rem;
-  justify-items: center;    
-  justify-content: center;  
-  text-align: center;
 }
 .tech-icons i {
   font-size: 7rem;
   color: #fff;
   transition: transform 0.3s, color 0.3s, text-shadow 0.3s;
-  cursor: pointer;
 }
-
-/* Hover effects: color + size increase */
-.tech-icons i:hover {
-  transform: scale(1.25);
-}
-
-/* Individual hover colors */
-.fa-html5:hover    { color: #e34c26; }
-.fa-css3-alt:hover { color: #1572b6; }
-.fa-js:hover       { color: #f7df1e; }
-.fa-python:hover   { color: #3776ab; }
-.fa-react:hover    { color: #61dafb; }
-.fa-github:hover   { color: #999; }
-
 .code-fly h2,
 .code-magic h2 {
   font-size: 3rem;
   text-shadow: 0 0 20px #0ff;
+}
+.fa-html5:hover {
+  color: #e34c26;
+}
+.fa-css3-alt:hover {
+  color: #1572b6;
+}
+.fa-js:hover {
+  color: #f7df1e;
+}
+.fa-python:hover {
+  color: #3776ab;
+}
+.fa-react:hover {
+  color: #61dafb;
+}
+.fa-github:hover {
+  color: #999;
 }
 
 .code-magic {
@@ -375,7 +374,6 @@ footer {
   z-index: 2;
   color: #0ff;
   margin-bottom: 2rem;
-  text-align:center;
 }
 .code-particles {
   position: absolute;
@@ -740,10 +738,6 @@ canvas {
   .ship {
     width: 12vh;
   }
-  .flame {
-    width: 15px;
-    height: 35px;
-  }
 }
 @media (max-width: 1200px) {
   .rocket-container {
@@ -954,7 +948,7 @@ canvas {
 }
 .bye-section,
 .glow-bg {
-  border-top: 1px solid rgba(0, 255, 255, 0.1);
+  border-top: 2px solid rgba(0, 255, 255, 0.1);
   position: relative;
   overflow: hidden;
 }
@@ -1052,48 +1046,7 @@ canvas {
     opacity: 1;
   }
 }
-.wave {
-  display: inline-block;
-  animation: 2.2s ease-in-out infinite waveMotion;
-  transform-origin: 70% 70%;
-}
-@keyframes waveMotion {
-  0%,
-  100% {
-    transform: rotate(0);
-  }
-  25% {
-    transform: rotate(18deg);
-  }
-  50% {
-    transform: rotate(-10deg);
-  }
-  75% {
-    transform: rotate(8deg);
-  }
-}
-.glow-bg {
-  background: radial-gradient(circle at top left, #0d0d0d, #050505);
-  color: #e6faff;
-  border-bottom: 1px solid rgba(0, 255, 255, 0.1);
-}
-.glow-bg::after,
-.glow-bg::before {
-  animation: 12s ease-in-out infinite floatBackground;
-}
-@keyframes floatBackground {
-  0%,
-  100% {
-    transform: translateY(0) rotate(0);
-  }
-  50% {
-    transform: translateY(-20px) rotate(10deg);
-  }
-}
-.glow-bg > * {
-  position: relative;
-  z-index: 1;
-}
+
 .hero-section {
   height: 100vh;
   display: flex;
@@ -1145,37 +1098,7 @@ canvas {
   z-index: 0;
   background: 0 0;
 }
-.particles::after,
-.particles::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(
-    circle,
-    rgba(0, 255, 255, 0.2) 2px,
-    transparent 3px
-  );
-  background-size: 80px 80px;
-  animation: 60s linear infinite moveParticles;
-  opacity: 0.25;
-  filter: blur(2px);
-}
-.particles::after {
-  animation-direction: reverse;
-  background-size: 120px 120px;
-  opacity: 0.15;
-}
-@keyframes moveParticles {
-  from {
-    transform: translate(0, 0);
-  }
-  to {
-    transform: translate(-50%, -50%);
-  }
-}
+
 @media (max-width: 768px) {
   .bye-section h2,
   .section-title {
@@ -1341,16 +1264,3 @@ canvas {
 .hero h3 {
   font-size: 1.5rem;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
