@@ -1123,7 +1123,6 @@ canvas {
 .hero-title {
   font-size: 3.2rem;
   margin-bottom: 0.5rem;
-  text-shadow: 0 0 25px rgba(0, 230, 255, 0.5);
 }
 .highlight {
   color: #00e6ff;
@@ -1343,6 +1342,7 @@ canvas {
 .hero h3 {
   font-size: 1.5rem;
 }
+
 
 
 
