@@ -1,33 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+ <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-    <title>Abdalla Zahra | Front-End Developer</title>
+  <title>Abdalla Zahra | Front-End Developer</title>
 
-    <link rel="preconnect" href="https://abdalla-zahra.vercel.app" />
+  <!-- Preload fonts (CRITICAL for LCP) -->
+  <link
+    rel="preload"
+    href="Fonts/orbitron-v35-latin-regular.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
+  >
+  <link
+    rel="preload"
+    href="Fonts/orbitron-v35-latin-700.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
+  >
 
-<link
-  rel="stylesheet"
-  href="style.css"
-  media="print"
-  onload="this.media='all'"
->
+  <!-- Non-blocking CSS -->
+  <link
+    rel="preload"
+    href="style.css"
+    as="style"
+    fetchpriority="high"
+    onload="this.onload=null;this.rel='stylesheet'"
+  >
+  <noscript>
+    <link rel="stylesheet" href="style.css" />
+  </noscript>
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="images/pumpkin.webp" />
 
-    <link rel="icon" type="image/x-icon" href="images/pumpkin.webp" />
+  <!-- Preload LCP image ONLY if it is hero -->
+  <link rel="preload" as="image" href="images/11430160.webp" />
 
-    <!-- Correct image preload -->
-    <link rel="preload" as="image" href="images/11430160.webp" />
-
-    <!-- Font Awesome (ONLY ONCE, non-blocking) -->
-    <script
-      src="https://kit.fontawesome.com/0a72e85e24.js"
-      crossorigin="anonymous"
-      defer
-    ></script>
-  </head>
+  <!-- Font Awesome (non-blocking) -->
+  <script
+    src="https://kit.fontawesome.com/0a72e85e24.js"
+    crossorigin="anonymous"
+    defer
+  ></script>
+</head>
 
   <body>
     <div class="intro-line">
@@ -245,5 +264,6 @@
     </script>
   </body>
 </html>
+
 
 
