@@ -263,11 +263,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }).catch(() => {});
   }, 8000);
 
-  document.getElementById("music-toggle")?.addEventListener("click", () => {
+   const toggle = document.getElementById("music-toggle");
+  toggle?.addEventListener("click", () => {
     if (music.paused) {
       music.play().catch(() => {});
+      toggle.textContent = "🔊";
     } else {
       music.pause();
+      toggle.textContent = "🔇";
     }
   });
 });
@@ -284,6 +287,7 @@ window.addEventListener("load", () => {
     });
   });
 });
+
 
 
 
