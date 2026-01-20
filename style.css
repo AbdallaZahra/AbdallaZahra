@@ -1303,6 +1303,7 @@ canvas {
   }
   /* Reduce glow/shadow cost */
   * {
+    overflow: hidden;
     text-shadow: none !important;
     box-shadow: none !important;
   }
@@ -1315,6 +1316,7 @@ canvas {
     font-size: 2.2rem;
   }
 }
+
 
 
 
