@@ -1284,37 +1284,7 @@ canvas {
 .hero h3 {
   font-size: 1.5rem;
 }
-/* Reduce shadow repaint cost */
-.project-card,
-.skill-box,
-.fake-terminal {
-  will-change: transform;
-}
 
-/* Prevent forced reflow from animations */
-.fade-in,
-.project-card {
-  transform: translateZ(0);
-}
-
-/* =========================
-   MOBILE PERFORMANCE MODE
-========================= */
-
-@media (max-width: 768px) {
-
-  /* Disable expensive infinite animations */
-  .intro-line,
-  .rocket-line,
-  .welcome span {
-    animation: none !important;
-  }
-
-  /* Reduce glow/shadow cost */
-  * {
-    text-shadow: none !important;
-    box-shadow: none !important;
-  }
 
 
 
