@@ -325,7 +325,7 @@ header p {
   font-size: 7rem;
   color: #fff;
   transition:
-    transform 0.5s ease,
+    transform 0.4s ease,
     color 0.3s ease,
     text-shadow 0.3s ease;
 }
@@ -1288,6 +1288,7 @@ canvas {
 .hero h3 {
   font-size: 1.5rem;
 }
+
 
 
 
