@@ -1292,24 +1292,16 @@ canvas {
 @media (max-width: 768px) {
 
   @media (max-width: 768px) {
-  @media (max-width: 768px) {
-    .intro-line,
-    .rocket-line,
-    .welcome span {
-      animation-iteration-count: 1;
-      animation-fill-mode: forwards;
-      animation-duration: 4s;
-      animation-timing-function: ease-out;
-    }
+ .welcome span {
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
   }
-  @media (max-width: 768px) {
-    .intro-line,
-    .rocket-line {
-      animation-iteration-count: 1;
-      animation-fill-mode: forwards;
-      animation-duration: 20s;
-      animation-timing-function: ease-out;
-    }
+  .intro-line,
+  .rocket-line {
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-duration: 15s;
   }
   /* Reduce glow/shadow cost */
   * {
@@ -1325,6 +1317,7 @@ canvas {
     font-size: 2.2rem;
   }
 }
+
 
 
 
