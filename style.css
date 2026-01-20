@@ -1291,11 +1291,26 @@ canvas {
 
 @media (max-width: 768px) {
 
-  /* Disable expensive infinite animations */
-  .welcome span {
-    animation: none !important;
+  @media (max-width: 768px) {
+  @media (max-width: 768px) {
+    .intro-line,
+    .rocket-line,
+    .welcome span {
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+      animation-duration: 4s;
+      animation-timing-function: ease-out;
+    }
   }
-
+  @media (max-width: 768px) {
+    .intro-line,
+    .rocket-line {
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+      animation-duration: 20s;
+      animation-timing-function: ease-out;
+    }
+  }
   /* Reduce glow/shadow cost */
   * {
     text-shadow: none !important;
@@ -1310,6 +1325,7 @@ canvas {
     font-size: 2.2rem;
   }
 }
+
 
 
 
