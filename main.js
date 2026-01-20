@@ -1,43 +1,23 @@
+this is main js
 /* =========================
-   GLOBAL SETUP (SAFE)
+   GLOBAL SETUP
 ========================= */
-
 const canvas = document.getElementById("bgCanvas");
-const ctx = canvas.getContext("2d", { alpha: false });
-
-const DPR = Math.min(window.devicePixelRatio || 1, 2);
-let cw = 0;
-let ch = 0;
-
-function resizeCanvas() {
-  cw = window.innerWidth;
-  ch = window.innerHeight;
-
-  canvas.style.width = cw + "px";
-  canvas.style.height = ch + "px";
-
-  canvas.width = Math.floor(cw * DPR);
-  canvas.height = Math.floor(ch * DPR);
-
-  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-}
-resizeCanvas();
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
 /* =========================
-   CANVAS PARTICLES (MOBILE AWARE)
+   CANVAS PARTICLES (OPTIMIZED)
 ========================= */
-
-const isMobile = window.matchMedia("(max-width: 768px)").matches;
-const PARTICLE_COUNT = isMobile ? 40 : 100;
-
 const particles = [];
-for (let i = 0; i < PARTICLE_COUNT; i++) {
+for (let i = 0; i < 100; i++) {
   particles.push({
-    x: Math.random() * cw,
-    y: Math.random() * ch,
-    r: Math.random() * 2,
-    dx: (Math.random() - 0.5) * 0.4,
-    dy: (Math.random() - 0.5) * 0.4,
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    radius: Math.random() * 2,
+    dx: (Math.random() - 0.5) * 0.5,
+    dy: (Math.random() - 0.5) * 0.5,
   });
 }
 
@@ -45,54 +25,53 @@ let animationId = null;
 let lastFrame = 0;
 
 function animate(time = 0) {
-  if (time - lastFrame < 32) {
+  if (time - lastFrame < 33) {
     animationId = requestAnimationFrame(animate);
     return;
   }
   lastFrame = time;
 
-  ctx.fillStyle = "#000";
-  ctx.fillRect(0, 0, cw, ch);
+  ctx.fillStyle = "rgba(0,0,0,0.2)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   ctx.fillStyle = "#0ff";
   for (const p of particles) {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+    ctx.fill();
+
     p.x += p.dx;
     p.y += p.dy;
 
-    if (p.x < 0 || p.x > cw) p.dx *= -1;
-    if (p.y < 0 || p.y > ch) p.dy *= -1;
-
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fill();
+    if (p.x <= 0 || p.x >= canvas.width) p.dx *= -1;
+    if (p.y <= 0 || p.y >= canvas.height) p.dy *= -1;
   }
 
   animationId = requestAnimationFrame(animate);
 }
 
-/* Start animation AFTER first paint */
-requestAnimationFrame(() => requestAnimationFrame(animate));
+animate();
 
 document.addEventListener("visibilitychange", () => {
-  if (document.hidden) cancelAnimationFrame(animationId);
-  else requestAnimationFrame(animate);
+  if (document.hidden) {
+    cancelAnimationFrame(animationId);
+  } else {
+    animate();
+  }
 });
 
-/* Debounced resize (no reflow spam) */
-let resizeTimer = null;
 window.addEventListener(
   "resize",
   () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(resizeCanvas, 150);
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
   },
   { passive: true }
 );
 
 /* =========================
-   TYPEWRITER EFFECT (IDLE SAFE)
+   TYPEWRITER EFFECT
 ========================= */
-
 const codeLines = [
   "const developer = {",
   '  name: "Abdalla Zahra",',
@@ -126,16 +105,11 @@ function typeLine() {
     setTimeout(typeLine, 200);
   }
 }
-
-/* Run after idle */
-requestIdleCallback
-  ? requestIdleCallback(typeLine)
-  : setTimeout(typeLine, 1000);
+typeLine();
 
 /* =========================
-   FLOATING CODE PARTICLES (REDUCED)
+   FLOATING CODE PARTICLES
 ========================= */
-
 const codeSnippets = [
   'console.log("Hello World");',
   '<div class="magic"></div>',
@@ -143,18 +117,20 @@ const codeSnippets = [
   'const design = "clean";',
   "function animate() {}",
   ".className { color: #0ff; }",
+  "const dev = true;",
+  "body { margin: 0; }",
+  "if (cool) { code(); }",
+  "return <CodeSnippet />;",
 ];
 
 const container = document.getElementById("codeParticles");
-const CODE_PARTICLES = isMobile ? 20 : 50;
-
-for (let i = 0; i < CODE_PARTICLES; i++) {
+for (let i = 0; i < 50; i++) {
   const el = document.createElement("div");
   el.className = "code-particle";
   el.style.left = Math.random() * 100 + "vw";
   el.style.top = Math.random() * 100 + "vh";
-  el.style.fontSize = 0.8 + Math.random() * 1.2 + "rem";
-  el.style.animationDuration = 6 + Math.random() * 4 + "s";
+  el.style.fontSize = 0.8 + Math.random() * 1.5 + "rem";
+  el.style.animationDuration = 5 + Math.random() * 5 + "s";
   el.textContent =
     codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
   container.appendChild(el);
@@ -163,13 +139,11 @@ for (let i = 0; i < CODE_PARTICLES; i++) {
 /* =========================
    SCROLL TO TOP (PASSIVE)
 ========================= */
-
-const scrollBtn = document.querySelector(".scroll-top");
 window.addEventListener(
   "scroll",
   () => {
-    if (!scrollBtn) return;
-    scrollBtn.classList.toggle("show", window.scrollY > 300);
+    const btn = document.querySelector(".scroll-top");
+    btn?.classList.toggle("show", window.scrollY > 300);
   },
   { passive: true }
 );
@@ -179,14 +153,13 @@ function scrollToTop() {
 }
 
 /* =========================
-   INTERSECTION OBSERVER
+   INTERSECTION OBSERVER (REUSED)
 ========================= */
-
 const observer = new IntersectionObserver(
   (entries) => {
-    for (const e of entries) {
-      if (e.isIntersecting) e.target.classList.add("visible");
-    }
+    entries.forEach(
+      (e) => e.isIntersecting && e.target.classList.add("visible")
+    );
   },
   { threshold: 0.2 }
 );
@@ -198,29 +171,30 @@ document
 /* =========================
    ROCKET LAUNCH (INP SAFE)
 ========================= */
-
 document.addEventListener("DOMContentLoaded", () => {
   const rocket = document.getElementById("rocket");
   const sound = document.getElementById("rocketSound");
-  if (!rocket) return;
-
   rocket.style.display = "none";
 
   const overlay = document.createElement("div");
   overlay.textContent = "Tap to launch the rocket 🚀";
   overlay.style.cssText = `
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.85);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.6rem;
-    font-weight: 600;
-    z-index: 9999;
-    cursor: pointer;
-  `;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: sans-serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+  padding: 2rem;
+  cursor: pointer;
+  z-index: 9999;
+`;
 
   document.body.appendChild(overlay);
 
@@ -231,10 +205,16 @@ document.addEventListener("DOMContentLoaded", () => {
       rocket.style.display = "block";
 
       requestAnimationFrame(() => {
-        rocket.style.animation = "flyAcross 7s ease-in-out forwards";
+        rocket.style.animation = "none";
+        requestAnimationFrame(() => {
+          rocket.style.animation = "flyAcross 7s ease-in-out forwards";
+        });
       });
 
-      sound?.play().catch(() => {});
+      setTimeout(() => {
+        sound.currentTime = 0;
+        sound.play().catch(() => {});
+      }, 100);
     },
     { once: true }
   );
@@ -243,10 +223,9 @@ document.addEventListener("DOMContentLoaded", () => {
 /* =========================
    BACKGROUND MUSIC (SAFE)
 ========================= */
-
 document.addEventListener("DOMContentLoaded", () => {
-  if (window.__bg_music__) return;
-  window.__bg_music__ = true;
+  if (window.__bg_music_initialized__) return;
+  window.__bg_music_initialized__ = true;
 
   const music = document.createElement("audio");
   music.src = "images/1025.MP3";
@@ -254,34 +233,51 @@ document.addEventListener("DOMContentLoaded", () => {
   music.volume = 0;
   document.body.appendChild(music);
 
+  let fadeInterval = null;
+
+  function fadeIn(target = 0.06, step = 0.01) {
+    clearInterval(fadeInterval);
+    fadeInterval = setInterval(() => {
+      music.volume = Math.min(target, music.volume + step);
+      if (music.volume >= target) clearInterval(fadeInterval);
+    }, 100);
+  }
+
   setTimeout(() => {
-    music.play().then(() => {
-      const fade = setInterval(() => {
-        music.volume = Math.min(0.06, music.volume + 0.01);
-        if (music.volume >= 0.06) clearInterval(fade);
-      }, 100);
-    }).catch(() => {});
+    music
+      .play()
+      .then(() => fadeIn())
+      .catch(() => {});
   }, 8000);
 
-  document.getElementById("music-toggle")?.addEventListener("click", () => {
+  document.body.addEventListener(
+    "click",
+    () => music.paused && music.play().catch(() => {}),
+    { once: true, passive: true }
+  );
+
+  const toggle = document.getElementById("music-toggle");
+  toggle?.addEventListener("click", () => {
     if (music.paused) {
       music.play().catch(() => {});
+      toggle.textContent = "🔊";
     } else {
       music.pause();
+      toggle.textContent = "🔇";
     }
   });
 });
 
 /* =========================
-   FALLING SHIPS (IDLE)
+   FALLING SHIPS
 ========================= */
-
 window.addEventListener("load", () => {
-  requestIdleCallback?.(() => {
-    ["ship1", "ship2"].forEach((id) => {
-      const el = document.getElementById(id);
-      el && (el.style.animation = "fall 11s linear forwards");
-    });
+  ["ship1", "ship2"].forEach((id) => {
+    const el = document.getElementById(id);
+    el &&
+      setTimeout(() => {
+        el.style.animation = "fall 11s linear forwards";
+      }, 5000);
   });
 });
 
