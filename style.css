@@ -316,10 +316,17 @@ header p {
   font-size: 7rem;
   color: #fff;
   transition:
-    transform 0.3s,
-    color 0.3s,
-    text-shadow 0.3s;
+    transform 0.3s ease,
+    color 0.3s ease,
+    text-shadow 0.3s ease;
 }
+
+/* Hover effect */
+.tech-icons i:hover {
+  transform: scale(1.25); /* 👈 makes icon bigger */
+  text-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+}
+
 .code-fly h2,
 .code-magic h2 {
   font-size: 3rem;
@@ -1273,6 +1280,7 @@ canvas {
 .hero h3 {
   font-size: 1.5rem;
 }
+
 
 
 
