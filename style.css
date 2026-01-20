@@ -1303,9 +1303,13 @@ canvas {
   }
   /* Reduce glow/shadow cost */
   * {
-    overflow: hidden;
     text-shadow: none !important;
     box-shadow: none !important;
+  }
+   html,
+  body {
+    width: 100%;
+    overflow-x: hidden;
   }
 
   header {
@@ -1316,6 +1320,7 @@ canvas {
     font-size: 2.2rem;
   }
 }
+
 
 
 
