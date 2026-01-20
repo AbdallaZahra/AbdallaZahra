@@ -1,4 +1,3 @@
-this is main js
 /* =========================
    GLOBAL SETUP
 ========================= */
@@ -280,6 +279,7 @@ window.addEventListener("load", () => {
       }, 5000);
   });
 });
+
 
 
 
