@@ -1292,8 +1292,6 @@ canvas {
 @media (max-width: 768px) {
 
   /* Disable expensive infinite animations */
-  .intro-line,
-  .rocket-line,
   .welcome span {
     animation: none !important;
   }
@@ -1312,6 +1310,7 @@ canvas {
     font-size: 2.2rem;
   }
 }
+
 
 
 
