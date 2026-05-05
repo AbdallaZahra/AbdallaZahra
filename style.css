@@ -64,17 +64,7 @@ header {
   cursor: pointer;
   position: fixed;
 }
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-body {
-  font-weight: 400;
-  line-height: 1.6;
-  color: #e6faff;
-  overflow-x: hidden;
-}
+
 .contact button,
 .intro-line,
 .rocket-line,
@@ -170,15 +160,7 @@ h6 {
     opacity: 0.7;
   }
 }
-header {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(145deg, #1f1f1f, #101010);
-  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
-}
+
 header h1 {
   font-size: 4rem;
   color: #0ff;
@@ -540,12 +522,7 @@ footer {
   color: #666;
   margin-top: 30vh;
 }
-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
-}
+
 @media (max-width: 768px) {
   body {
     font-size: 14px;
@@ -1321,6 +1298,135 @@ canvas {
   }
 }
 
+/* === FIXED VERSION (iPHONE SAFE) === */
+
+/* GLOBAL FIXES */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-weight: 400;
+  line-height: 1.6;
+  color: #e6faff;
+  overflow-x: hidden;
+}
+
+/* ===== FIX: REMOVE BROKEN VH USAGE ===== */
+header {
+  min-height: 100vh;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #1f1f1f, #101010);
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+
+.hero-section {
+  min-height: 100vh;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: visible; /* FIXED */
+  color: #e6faff;
+  padding: 2rem;
+}
+
+.code-fly {
+  min-height: 100vh;
+  height: auto;
+  overflow: visible; /* FIXED */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* ===== FIX CANVAS LAYER ISSUE ===== */
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0; /* FIXED from -1 */
+}
+
+/* KEEP EVERYTHING ELSE SAME BUT SAFE */
+
+.section {
+  padding: 5rem 2rem;
+}
+
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
+  gap: 2rem;
+  padding: 0 2rem;
+}
+
+.project-card {
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 15px rgba(0,255,255,0.2);
+}
+
+.project-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 2s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== MOBILE FIXES ===== */
+@media (max-width: 768px) {
+  header {
+    min-height: 70vh;
+  }
+
+  .hero-section {
+    min-height: 70vh;
+  }
+
+  .code-fly {
+    min-height: 80vh;
+  }
+
+  /* PERFORMANCE FIX */
+  * {
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+}
+
+/* ===== OPTIONAL: MODERN IOS FIX ===== */
+@supports (height: 100dvh) {
+  header,
+  .hero-section,
+  .code-fly {
+    min-height: 100dvh;
+  }
+}
+
+/* KEEP YOUR ORIGINAL STYLES BELOW (UNCHANGED) */
+/* NOTE: Only problematic parts were fixed above */
 
 
 
