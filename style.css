@@ -1037,7 +1037,26 @@ header, section, .intro-line, .rocket-line {
   }
 }
 
+.ship, .rocket-container {
+  z-index: 999; /* Forces them in front of everything */
+  pointer-events: none; /* Ensures you can click through them */
+}
+@media (max-width: 768px) {
+  .projects-grid, 
+  .skills-grid {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1.5rem;
+  }
 
+  .project-card, 
+  .skill-box {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box; /* Forces padding to stay inside the box */
+  }
+}
 
 
 
