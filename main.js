@@ -127,10 +127,12 @@ function typeLine() {
   }
 }
 
-/* Run after idle */
-requestIdleCallback
-  ? requestIdleCallback(typeLine)
-  : setTimeout(typeLine, 1000);
+/* Safely check for requestIdleCallback to prevent iOS crash */
+if ('requestIdleCallback' in window) {
+  window.requestIdleCallback(typeLine);
+} else {
+  setTimeout(typeLine, 1000);
+}
 
 /* =========================
    FLOATING CODE PARTICLES (REDUCED)
@@ -185,10 +187,14 @@ function scrollToTop() {
 const observer = new IntersectionObserver(
   (entries) => {
     for (const e of entries) {
-      if (e.isIntersecting) e.target.classList.add("visible");
+      if (e.isIntersecting) {
+        e.target.classList.add("visible");
+        /* Optional: Unobserve after it becomes visible to save performance */
+        // observer.unobserve(e.target);
+      }
     }
   },
-  { threshold: 0.2 }
+  { threshold: 0.1 } /* Slightly lowered threshold for better mobile detection */
 );
 
 document
@@ -208,19 +214,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const overlay = document.createElement("div");
   overlay.textContent = "Tap to launch the rocket 🚀";
-overlay.style.cssText = `
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: clamp(1rem, 4vw, 1.6rem);
-  font-weight: 600;
-  z-index: 9999;
-  cursor: pointer;
-`;
+  overlay.style.cssText = `
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(1rem, 4vw, 1.6rem);
+    font-weight: 600;
+    z-index: 9999;
+    cursor: pointer;
+  `;
 
   document.body.appendChild(overlay);
 
@@ -263,7 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }).catch(() => {});
   }, 8000);
 
-   const toggle = document.getElementById("music-toggle");
+  const toggle = document.getElementById("music-toggle");
   toggle?.addEventListener("click", () => {
     if (music.paused) {
       music.play().catch(() => {});
@@ -280,14 +286,20 @@ document.addEventListener("DOMContentLoaded", () => {
 ========================= */
 
 window.addEventListener("load", () => {
-  requestIdleCallback?.(() => {
+  const triggerShips = () => {
     ["ship1", "ship2"].forEach((id) => {
       const el = document.getElementById(id);
-      el && (el.style.animation = "fall 11s linear forwards");
+      if (el) el.style.animation = "fall 11s linear forwards";
     });
-  });
-});
+  };
 
+  /* Safely check for requestIdleCallback */
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(triggerShips);
+  } else {
+    setTimeout(triggerShips, 500);
+  }
+});
 
 
 
