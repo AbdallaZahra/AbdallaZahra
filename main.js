@@ -247,40 +247,33 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* =========================
-   BACKGROUND MUSIC (SAFE)
+   BACKGROUND MUSIC (FIXED)
 ========================= */
-
 document.addEventListener("DOMContentLoaded", () => {
-  if (window.__bg_music__) return;
-  window.__bg_music__ = true;
-
-  const music = document.createElement("audio");
-  music.src = "images/1025.MP3";
-  music.loop = true;
-  music.volume = 0;
-  document.body.appendChild(music);
-
-  setTimeout(() => {
-    music.play().then(() => {
-      const fade = setInterval(() => {
-        music.volume = Math.min(0.06, music.volume + 0.01);
-        if (music.volume >= 0.06) clearInterval(fade);
-      }, 100);
-    }).catch(() => {});
-  }, 8000);
-
   const toggle = document.getElementById("music-toggle");
+  
+  // Set to the exact path in your files
+  const music = new Audio("images/1025.MP3"); 
+  music.loop = true;
+  music.volume = 0.2; // Set a safe starting volume
+
   toggle?.addEventListener("click", () => {
     if (music.paused) {
-      music.play().catch(() => {});
-      toggle.textContent = "🔊";
+      // Browser allows this because it is triggered by a direct click
+      music.play()
+        .then(() => {
+          toggle.textContent = "🔊";
+        })
+        .catch((err) => {
+          console.error("Audio failed to play:", err);
+          alert("Audio blocked or file not found.");
+        });
     } else {
       music.pause();
       toggle.textContent = "🔇";
     }
   });
 });
-
 /* =========================
    FALLING SHIPS (IDLE)
 ========================= */
