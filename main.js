@@ -127,8 +127,8 @@ function typeLine() {
   }
 }
 
-/* Safely check for requestIdleCallback to prevent iOS crash */
-if ('requestIdleCallback' in window) {
+/* SAFELY FIXED for old iOS browsers */
+if (typeof window.requestIdleCallback === "function") {
   window.requestIdleCallback(typeLine);
 } else {
   setTimeout(typeLine, 1000);
@@ -187,14 +187,10 @@ function scrollToTop() {
 const observer = new IntersectionObserver(
   (entries) => {
     for (const e of entries) {
-      if (e.isIntersecting) {
-        e.target.classList.add("visible");
-        /* Optional: Unobserve after it becomes visible to save performance */
-        // observer.unobserve(e.target);
-      }
+      if (e.isIntersecting) e.target.classList.add("visible");
     }
   },
-  { threshold: 0.1 } /* Slightly lowered threshold for better mobile detection */
+  { threshold: 0.2 }
 );
 
 document
@@ -214,19 +210,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const overlay = document.createElement("div");
   overlay.textContent = "Tap to launch the rocket 🚀";
-  overlay.style.cssText = `
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.85);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: clamp(1rem, 4vw, 1.6rem);
-    font-weight: 600;
-    z-index: 9999;
-    cursor: pointer;
-  `;
+overlay.style.cssText = `
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1rem, 4vw, 1.6rem);
+  font-weight: 600;
+  z-index: 9999;
+  cursor: pointer;
+`;
 
   document.body.appendChild(overlay);
 
@@ -247,50 +243,57 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* =========================
-   BACKGROUND MUSIC (FIXED)
+   BACKGROUND MUSIC (SAFE)
 ========================= */
-document.addEventListener("DOMContentLoaded", () => {
-  const toggle = document.getElementById("music-toggle");
-  
-  // Set to the exact path in your files
-  const music = new Audio("images/1025.MP3"); 
-  music.loop = true;
-  music.volume = 0.2; // Set a safe starting volume
 
+document.addEventListener("DOMContentLoaded", () => {
+  if (window.__bg_music__) return;
+  window.__bg_music__ = true;
+
+  const music = document.createElement("audio");
+  music.src = "images/1025.MP3";
+  music.loop = true;
+  music.volume = 0;
+  document.body.appendChild(music);
+
+  setTimeout(() => {
+    music.play().then(() => {
+      const fade = setInterval(() => {
+        music.volume = Math.min(0.06, music.volume + 0.01);
+        if (music.volume >= 0.06) clearInterval(fade);
+      }, 100);
+    }).catch(() => {});
+  }, 8000);
+
+   const toggle = document.getElementById("music-toggle");
   toggle?.addEventListener("click", () => {
     if (music.paused) {
-      // Browser allows this because it is triggered by a direct click
-      music.play()
-        .then(() => {
-          toggle.textContent = "🔊";
-        })
-        .catch((err) => {
-          console.error("Audio failed to play:", err);
-          alert("Audio blocked or file not found.");
-        });
+      music.play().catch(() => {});
+      toggle.textContent = "🔊";
     } else {
       music.pause();
       toggle.textContent = "🔇";
     }
   });
 });
+
 /* =========================
    FALLING SHIPS (IDLE)
 ========================= */
 
 window.addEventListener("load", () => {
-  const triggerShips = () => {
+  const dropShips = () => {
     ["ship1", "ship2"].forEach((id) => {
       const el = document.getElementById(id);
       if (el) el.style.animation = "fall 11s linear forwards";
     });
   };
 
-  /* Safely check for requestIdleCallback */
-  if ('requestIdleCallback' in window) {
-    window.requestIdleCallback(triggerShips);
+  /* SAFELY FIXED for old iOS browsers */
+  if (typeof window.requestIdleCallback === "function") {
+    window.requestIdleCallback(dropShips);
   } else {
-    setTimeout(triggerShips, 500);
+    setTimeout(dropShips, 500);
   }
 });
 
