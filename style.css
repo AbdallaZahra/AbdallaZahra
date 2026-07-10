@@ -801,7 +801,7 @@ footer {
       transform: rotate(95deg) scale(1);
     }
     100% {
-      top: 50%;
+      top: 80%;
       left: 52%;
       transform: rotate(124deg) scale(1.1);
     }
