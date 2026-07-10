@@ -15,7 +15,6 @@
   descent-override: 10%;
   line-gap-override: 0%;
 }
-
 /* Orbitron */
 @font-face {
   font-family: "Orbitron";
@@ -27,7 +26,6 @@
   descent-override: 12%;
   line-gap-override: 0%;
 }
-
 @font-face {
   font-family: "Orbitron";
   font-style: normal;
@@ -38,7 +36,6 @@
   descent-override: 12%;
   line-gap-override: 0%;
 }
-
 .code-fly h2,
 body,
 header h1 {
@@ -64,7 +61,6 @@ header {
   cursor: pointer;
   position: fixed;
 }
-
 .contact button,
 .intro-line,
 .rocket-line,
@@ -160,7 +156,6 @@ h6 {
     opacity: 0.7;
   }
 }
-
 header h1 {
   font-size: 4rem;
   color: #0ff;
@@ -184,7 +179,6 @@ header p {
   color: #ccc;
   margin-top: 1rem;
 }
-
 .section {
   padding: 5rem 2rem;
 }
@@ -205,7 +199,6 @@ header p {
   transform: scale(1.05);
   box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
 }
-
 .email:hover,
 .insta:hover,
 .whats:hover {
@@ -311,12 +304,10 @@ header p {
     color 0.3s ease,
     text-shadow 0.3s ease;
 }
-
 /* Hover effect */
 .tech-icons i:hover {
   transform: scale(1.25); /* 👈 makes icon bigger */
 }
-
 .code-fly h2,
 .code-magic h2 {
   font-size: 3rem;
@@ -340,7 +331,6 @@ header p {
 .fa-github:hover {
   color: #999;
 }
-
 .code-magic {
   padding: 10rem 0 0;
   color: #0ff;
@@ -522,7 +512,6 @@ footer {
   color: #666;
   margin-top: 30vh;
 }
-
 @media (max-width: 768px) {
   body {
     font-size: 14px;
@@ -1046,7 +1035,6 @@ footer {
     opacity: 1;
   }
 }
-
 .hero-section {
   height: 100vh;
   display: flex;
@@ -1098,7 +1086,6 @@ footer {
   z-index: 0;
   background: 0 0;
 }
-
 @media (max-width: 768px) {
   .bye-section h2,
   .section-title {
@@ -1265,9 +1252,8 @@ footer {
 .hero h3 {
   font-size: 1.5rem;
 }
-
 @media (max-width: 768px) {
- .welcome span {
+  .welcome span {
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
     animation-duration: 4s;
@@ -1283,48 +1269,36 @@ footer {
     text-shadow: none !important;
     box-shadow: none !important;
   }
-/* Remove overflow from html to fix iOS scroll detection */
-html {
-  width: 100%;
-  /* DO NOT put overflow-x: hidden here */
-}
-
-body {
-  width: 100%;
-  overflow-x: hidden;
-  position: relative; /* Keeps hidden elements properly contained */
-}
-
+  html,
+  body {
+    width: 100%;
+    overflow-x: hidden;
+  }
   header {
     height: 70vh;
   }
-
   header h1 {
     font-size: 2.2rem;
   }
 }
-
 /* === FIXED VERSION (iPHONE SAFE) === */
-
 /* GLOBAL FIXES */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
-/* Remove overflow from html to fix iOS scroll detection */
-html {
-  width: 100%;
-  /* DO NOT put overflow-x: hidden here */
-}
-
+html,
 body {
   width: 100%;
   overflow-x: hidden;
-  position: relative; /* Keeps hidden elements properly contained */
 }
-
+body {
+  font-weight: 400;
+  line-height: 1.6;
+  color: #e6faff;
+  overflow-x: hidden;
+}
 /* ===== FIX: REMOVE BROKEN VH USAGE ===== */
 header {
   min-height: 100vh;
@@ -1336,7 +1310,6 @@ header {
   background: linear-gradient(145deg, #1f1f1f, #101010);
   clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
 }
-
 .hero-section {
   min-height: 100vh;
   height: auto;
@@ -1348,7 +1321,6 @@ header {
   color: #e6faff;
   padding: 2rem;
 }
-
 .code-fly {
   min-height: 100vh;
   height: auto;
@@ -1358,76 +1330,57 @@ header {
   justify-content: center;
   flex-direction: column;
 }
-
 /* ===== FIX CANVAS LAYER ISSUE ===== */
 canvas {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: -1; 
-  pointer-events: none; /* Prevents canvas from blocking clicks */
-}
-
-/* Ensure all your sections sit on top of the canvas */
-header, section, .intro-line, .rocket-line {
-  position: relative;
-  z-index: 1;
+  z-index: 0; /* FIXED from -1 */
 }
 /* KEEP EVERYTHING ELSE SAME BUT SAFE */
-
 .section {
   padding: 5rem 2rem;
 }
-
 .projects {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
   gap: 2rem;
   padding: 0 2rem;
 }
-
 .project-card {
   background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 0 15px rgba(0,255,255,0.2);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
 }
-
 .project-card.visible {
   opacity: 1;
   transform: translateY(0);
 }
-
 .fade-in {
   opacity: 0;
   transform: translateY(40px);
   transition: 2s ease-out;
 }
-
 .fade-in.visible {
   opacity: 1;
   transform: translateY(0);
 }
-
 /* ===== MOBILE FIXES ===== */
 @media (max-width: 768px) {
   header {
     min-height: 70vh;
   }
-
   .hero-section {
     min-height: 70vh;
   }
-
   .code-fly {
     min-height: 80vh;
   }
-
   /* PERFORMANCE FIX */
   * {
     text-shadow: none !important;
     box-shadow: none !important;
   }
 }
-
 /* ===== OPTIONAL: MODERN IOS FIX ===== */
 @supports (height: 100dvh) {
   header,
@@ -1436,15 +1389,6 @@ header, section, .intro-line, .rocket-line {
     min-height: 100dvh;
   }
 }
-
-/* KEEP YOUR ORIGINAL STYLES BELOW (UNCHANGED) */
-/* NOTE: Only problematic parts were fixed above */
-
-
-
-
-
-
 
 
 
