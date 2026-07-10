@@ -86,7 +86,7 @@ window.addEventListener(
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(resizeCanvas, 150);
   },
-  { passive: true }
+  { passive: true },
 );
 
 /* =========================
@@ -127,12 +127,10 @@ function typeLine() {
   }
 }
 
-/* SAFELY FIXED for old iOS browsers */
-if (typeof window.requestIdleCallback === "function") {
-  window.requestIdleCallback(typeLine);
-} else {
-  setTimeout(typeLine, 1000);
-}
+/* Run after idle */
+requestIdleCallback
+  ? requestIdleCallback(typeLine)
+  : setTimeout(typeLine, 1000);
 
 /* =========================
    FLOATING CODE PARTICLES (REDUCED)
@@ -173,7 +171,7 @@ window.addEventListener(
     if (!scrollBtn) return;
     scrollBtn.classList.toggle("show", window.scrollY > 300);
   },
-  { passive: true }
+  { passive: true },
 );
 
 function scrollToTop() {
@@ -190,7 +188,7 @@ const observer = new IntersectionObserver(
       if (e.isIntersecting) e.target.classList.add("visible");
     }
   },
-  { threshold: 0.2 }
+  { threshold: 0.2 },
 );
 
 document
@@ -210,7 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const overlay = document.createElement("div");
   overlay.textContent = "Tap to launch the rocket 🚀";
-overlay.style.cssText = `
+  overlay.style.cssText = `
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.85);
@@ -238,7 +236,7 @@ overlay.style.cssText = `
 
       sound?.play().catch(() => {});
     },
-    { once: true }
+    { once: true },
   );
 });
 
@@ -257,15 +255,18 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.appendChild(music);
 
   setTimeout(() => {
-    music.play().then(() => {
-      const fade = setInterval(() => {
-        music.volume = Math.min(0.06, music.volume + 0.01);
-        if (music.volume >= 0.06) clearInterval(fade);
-      }, 100);
-    }).catch(() => {});
+    music
+      .play()
+      .then(() => {
+        const fade = setInterval(() => {
+          music.volume = Math.min(0.06, music.volume + 0.01);
+          if (music.volume >= 0.06) clearInterval(fade);
+        }, 100);
+      })
+      .catch(() => {});
   }, 8000);
 
-   const toggle = document.getElementById("music-toggle");
+  const toggle = document.getElementById("music-toggle");
   toggle?.addEventListener("click", () => {
     if (music.paused) {
       music.play().catch(() => {});
@@ -282,20 +283,14 @@ document.addEventListener("DOMContentLoaded", () => {
 ========================= */
 
 window.addEventListener("load", () => {
-  const dropShips = () => {
+  requestIdleCallback?.(() => {
     ["ship1", "ship2"].forEach((id) => {
       const el = document.getElementById(id);
-      if (el) el.style.animation = "fall 11s linear forwards";
+      el && (el.style.animation = "fall 11s linear forwards");
     });
-  };
-
-  /* SAFELY FIXED for old iOS browsers */
-  if (typeof window.requestIdleCallback === "function") {
-    window.requestIdleCallback(dropShips);
-  } else {
-    setTimeout(dropShips, 500);
-  }
+  });
 });
+
 
 
 
