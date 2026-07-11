@@ -446,9 +446,8 @@ footer {
   transform: scale(1.05);
 }
 .fade-in {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: 2s ease-out;
+  opacity: 1 !important;
+  transform: none !important;
 }
 .fade-in.visible {
   opacity: 1;
