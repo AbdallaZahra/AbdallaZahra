@@ -366,7 +366,7 @@ footer {
   flex-direction: column;
 }
 .code-fly h2 {
-  z-index: 2;
+  z-index: 50;
   color: #0ff;
   margin-bottom: 2rem;
 }
@@ -897,7 +897,7 @@ footer {
   position: absolute;
   inset: 0;
   animation: 2s infinite alternate backgroundGlow;
-  z-index: 0;
+  z-index: -40;
 }
 @keyframes backgroundGlow {
   0% {
@@ -914,14 +914,14 @@ footer {
   color: #00e6ff;
   margin-bottom: 3rem;
   position: relative;
-  z-index: 1;
+  z-index: 50;
 }
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
   justify-items: center;
-  z-index: 1;
+  z-index: 50;
   position: relative;
 }
 .project-card {
@@ -987,7 +987,7 @@ footer {
   border-radius: 50%;
   filter: blur(80px);
   opacity: 0.15;
-  z-index: 0;
+  z-index: -100;
   content: "";
 }
 .bye-section {
@@ -1021,7 +1021,7 @@ footer {
   color: #00e6ff;
   text-shadow: 0 0 15px rgba(0, 230, 255, 0.5);
   position: relative;
-  z-index: 1;
+  z-index: 50;
   animation: 1s ease-out forwards fadeInUp;
 }
 @keyframes fadeInUp {
@@ -1045,7 +1045,7 @@ footer {
   padding: 2rem;
 }
 .hero-content {
-  z-index: 2;
+  z-index: 50;
   animation: 1.5s ease-out forwards fadeIn;
   opacity: 0;
 }
@@ -1082,7 +1082,7 @@ footer {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  z-index: -50;
+  z-index: -500;
   background: 0 0;
 }
 @media (max-width: 768px) {
@@ -1288,11 +1288,14 @@ footer {
 }
 html, body {
   width: 100%;
+  overflow-x: hidden;
+
 }
 body {
   font-weight: 400;
   line-height: 1.6;
   color: #e6faff;
+  overflow-x: hidden;
 }
 /* ===== FIX: REMOVE BROKEN VH USAGE ===== */
 header {
