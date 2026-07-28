@@ -1378,14 +1378,7 @@ canvas {
     box-shadow: none !important;
   }
 }
-/* ===== OPTIONAL: MODERN IOS FIX ===== */
-@supports (height: 100dvh) {
-  header,
-  .hero-section,
-  .code-fly {
-    min-height: 100dvh;
-  }
-}
+
 
 
 
