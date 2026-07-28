@@ -681,10 +681,6 @@ footer {
   width: 30vh;
   display: block;
   z-index:9999;
-  transform:translateZ(0);
-backface-visibility:hidden;
--webkit-backface-visibility:hidden;
-will-change:transform;
 }
 @keyframes flyAcross {
   0% {
@@ -713,10 +709,6 @@ will-change:transform;
   opacity: 0;
   rotate: 124deg;
   z-index:9998;
-  transform:translateZ(0);
-backface-visibility:hidden;
--webkit-backface-visibility:hidden;
-will-change:transform;
 }
 #ship1 {
   left: 15%;
@@ -953,10 +945,9 @@ will-change:transform;
   opacity: 0;
   z-index: 1001;
   position:relative;
-transform:translateZ(0);
-backface-visibility:hidden;
--webkit-backface-visibility:hidden;
-will-change:transform;
+}
+.project-card.visible {
+    opacity: 1;
 }
 .bye-section,
 .glow-bg {
@@ -1075,7 +1066,9 @@ backface-visibility:hidden;
 .hero-content {
   z-index: 50;
   animation: 1.5s ease-out forwards fadeIn;
-  opacity: 0;
+}
+.hero-content.visible{
+   opacity: 1;
 }
 @keyframes fadeIn {
   from {
@@ -1155,9 +1148,6 @@ backface-visibility:hidden;
   opacity: 0;
   transform: translateY(-150px) rotateX(90deg) scale(0.5);
   animation: 1.6s ease-out 4s forwards drop;
-  transform:translateZ(0);
-backface-visibility:hidden;
--webkit-backface-visibility:hidden;
 }
 @keyframes drop {
   0% {
