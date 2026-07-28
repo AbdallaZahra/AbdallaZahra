@@ -187,10 +187,12 @@ header p {
   grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
   gap: 2rem;
   padding: 0 2rem;
+  z-index:1000;
 }
 .project-card a {
   text-decoration: none;
   color: #fff;
+  
 }
 .project-card {
   box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
@@ -282,6 +284,7 @@ header p {
   padding: 0.1rem 0.5rem 0.5rem;
   background: #0e0d0d;
   margin-top: 15vh;
+  z-index:1000;
 }
 .tech-stack h2 {
   font-size: 3rem;
@@ -303,10 +306,12 @@ header p {
     transform 0.4s ease,
     color 0.3s ease,
     text-shadow 0.3s ease;
+  z-index:1000;
 }
 /* Hover effect */
 .tech-icons i:hover {
   transform: scale(1.25); /* 👈 makes icon bigger */
+  z-index:1000;
 }
 .code-fly h2,
 .code-magic h2 {
@@ -339,17 +344,20 @@ header p {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  z-index:49;
 }
 .fake-terminal,
 footer {
   padding: 2rem;
   background: #000;
+  z-index:1000;
 }
 .fake-terminal {
   border: 2px solid #0ff;
   max-width: 90%;
   box-shadow: 0 0 20px #0ff;
   border-radius: 10px;
+  z-index:1000;
 }
 #code-output {
   font-size: 1rem;
@@ -364,6 +372,7 @@ footer {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  z-index:49;
 }
 .code-fly h2 {
   z-index: 50;
@@ -671,6 +680,7 @@ footer {
 .rocket {
   width: 30vh;
   display: block;
+  z-index:9999;
 }
 @keyframes flyAcross {
   0% {
@@ -698,6 +708,7 @@ footer {
   width: 25vh;
   opacity: 0;
   rotate: 124deg;
+  z-index:9998;
 }
 #ship1 {
   left: 15%;
@@ -897,7 +908,6 @@ footer {
   position: absolute;
   inset: 0;
   animation: 2s infinite alternate backgroundGlow;
-  z-index: -40;
 }
 @keyframes backgroundGlow {
   0% {
@@ -921,7 +931,7 @@ footer {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
   justify-items: center;
-  z-index: 50;
+  z-index: 1000;
   position: relative;
 }
 .project-card {
@@ -933,6 +943,7 @@ footer {
   transition: 0.1s;
   transform: translateY(40px);
   opacity: 0;
+  z-index: 1001;
 }
 .bye-section,
 .glow-bg {
