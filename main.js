@@ -182,18 +182,29 @@ function scrollToTop() {
    INTERSECTION OBSERVER
 ========================= */
 
-const observer = new IntersectionObserver(
-  (entries) => {
-    for (const e of entries) {
-      if (e.isIntersecting) e.target.classList.add("visible");
-    }
-  },
-  { threshold: 0.2 },
-);
+const animatedElements = document.querySelectorAll(".fade-in, .project-card");
 
-document
-  .querySelectorAll(".fade-in, .project-card")
-  .forEach((el) => observer.observe(el));
+if ("IntersectionObserver" in window) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      root: null,
+      threshold: 0.1,
+      rootMargin: "0px 0px -10% 0px",
+    }
+  );
+
+  animatedElements.forEach((el) => observer.observe(el));
+} else {
+  animatedElements.forEach((el) => el.classList.add("visible"));
+}
 
 /* =========================
    ROCKET LAUNCH (INP SAFE)
