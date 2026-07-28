@@ -343,7 +343,7 @@ header p {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  overflow: visible !important;
   z-index:49;
 }
 .fake-terminal,
@@ -367,7 +367,7 @@ footer {
 }
 .code-fly {
   height: 130vh;
-  overflow: hidden;
+  overflow: visible !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -386,7 +386,12 @@ footer {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  overflow: hidden;
+  overflow: visible;
+   will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
 }
 .rocket-container,
 .ship {
@@ -407,14 +412,20 @@ footer {
 }
 @keyframes floatCode {
   0% {
-    transform: translateY(100vh) rotate(0);
+    transform: translate3d(0, 100dvh, 0) rotate(0deg);
     opacity: 0;
   }
-  50% {
+
+  10% {
     opacity: 1;
   }
+
+  90% {
+    opacity: 1;
+  }
+
   100% {
-    transform: translateY(-100vh) rotate(360deg);
+    transform: translate3d(0, -100dvh, 0) rotate(360deg);
     opacity: 0;
   }
 }
@@ -454,14 +465,7 @@ footer {
 .impact-right li:hover {
   transform: scale(1.05);
 }
-.fade-in {
-  opacity: 1 !important;
-  transform: none !important;
-}
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+
 .bye-section {
   padding: 5rem 2rem;
   background: linear-gradient(to top, #000, #0a0a0a);
@@ -706,7 +710,7 @@ footer {
 }
 .ship {
   width: 25vh;
-  opacity: 0;
+  opacity: 1;
   rotate: 124deg;
   z-index:9998;
 }
@@ -818,7 +822,7 @@ footer {
   }
 }
 .impact-section {
-  overflow: hidden;
+  overflow: visible;
   padding: 5rem 2rem;
   background: radial-gradient(circle at top left, #0d0d0d, #050505);
   color: #fff;
@@ -901,7 +905,7 @@ footer {
   padding: 5rem 2rem;
   text-align: center;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 .portfolio-section::before {
   content: "";
@@ -942,12 +946,9 @@ footer {
   backdrop-filter: blur(8px);
   transition: 0.1s;
   transform: translateY(40px);
-  opacity: 0;
+  opacity: 1;
   z-index: 1001;
   position:relative;
-}
-.project-card.visible {
-    opacity: 1;
 }
 .bye-section,
 .glow-bg {
@@ -1059,9 +1060,6 @@ footer {
   color: #e6faff;
   padding: 2rem;
   position:relative;
-transform:translateZ(0);
-backface-visibility:hidden;
--webkit-backface-visibility:hidden;
 }
 .hero-content {
   z-index: 50;
@@ -1072,7 +1070,7 @@ backface-visibility:hidden;
 }
 @keyframes fadeIn {
   from {
-    opacity: 0;
+    opacity: 0.5;
     transform: translateY(30px);
   }
   to {
@@ -1339,16 +1337,8 @@ header {
    /* FIXED */
   color: #e6faff;
   padding: 2rem;
-}
-.code-fly {
-  min-height: 100dvh;
-  height: auto;
-  overflow: visible; /* FIXED */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
+
+
 /* ===== FIX CANVAS LAYER ISSUE ===== */
 canvas {
   position: fixed;
@@ -1356,7 +1346,6 @@ canvas {
   left: 0;
   z-index: -1000; /* FIXED from -1 */
   pointer-events:none;
-transform:translateZ(0);
 }
 /* KEEP EVERYTHING ELSE SAME BUT SAFE */
 .section {
@@ -1371,10 +1360,6 @@ transform:translateZ(0);
 .project-card {
   background: rgba(255, 255, 255, 0.05);
   box-shadow: 0 0 15px rgba(0,255,255,0.2);
-}
-.project-card.visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 /* ===== MOBILE FIXES ===== */
