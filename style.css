@@ -905,7 +905,7 @@ footer {
 }
 .portfolio-section::before {
   content: "";
-  position: absolute;
+
   inset: 0;
   animation: 2s infinite alternate backgroundGlow;
 }
