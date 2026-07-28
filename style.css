@@ -343,7 +343,7 @@ header p {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: visible !important;
+  overflow: hidden;
   z-index:49;
 }
 .fake-terminal,
@@ -367,7 +367,7 @@ footer {
 }
 .code-fly {
   height: 130vh;
-  overflow: visible !important;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -386,12 +386,7 @@ footer {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  overflow: visible;
-   will-change: transform, opacity;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
+  overflow: hidden;
 }
 .rocket-container,
 .ship {
@@ -412,20 +407,14 @@ footer {
 }
 @keyframes floatCode {
   0% {
-    transform: translate3d(0, 100dvh, 0) rotate(0deg);
+    transform: translateY(100vh) rotate(0);
     opacity: 0;
   }
-
-  10% {
+  50% {
     opacity: 1;
   }
-
-  90% {
-    opacity: 1;
-  }
-
   100% {
-    transform: translate3d(0, -100dvh, 0) rotate(360deg);
+    transform: translateY(-100vh) rotate(360deg);
     opacity: 0;
   }
 }
@@ -465,7 +454,14 @@ footer {
 .impact-right li:hover {
   transform: scale(1.05);
 }
-
+.fade-in {
+  opacity: 1 !important;
+  transform: none !important;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 .bye-section {
   padding: 5rem 2rem;
   background: linear-gradient(to top, #000, #0a0a0a);
@@ -710,7 +706,7 @@ footer {
 }
 .ship {
   width: 25vh;
-  opacity: 1;
+  opacity: 0;
   rotate: 124deg;
   z-index:9998;
 }
@@ -822,7 +818,7 @@ footer {
   }
 }
 .impact-section {
-  overflow: visible;
+  overflow: hidden;
   padding: 5rem 2rem;
   background: radial-gradient(circle at top left, #0d0d0d, #050505);
   color: #fff;
@@ -905,7 +901,7 @@ footer {
   padding: 5rem 2rem;
   text-align: center;
   position: relative;
-  overflow: visible;
+  overflow: hidden;
 }
 .portfolio-section::before {
   content: "";
@@ -946,9 +942,8 @@ footer {
   backdrop-filter: blur(8px);
   transition: 0.1s;
   transform: translateY(40px);
-  opacity: 1;
+  opacity: 0;
   z-index: 1001;
-  position:relative;
 }
 .bye-section,
 .glow-bg {
@@ -1059,18 +1054,15 @@ footer {
   overflow: hidden;
   color: #e6faff;
   padding: 2rem;
-  position:relative;
 }
 .hero-content {
   z-index: 50;
   animation: 1.5s ease-out forwards fadeIn;
-}
-.hero-content.visible{
-   opacity: 1;
+  opacity: 0;
 }
 @keyframes fadeIn {
   from {
-    opacity: 0.5;
+    opacity: 0;
     transform: translateY(30px);
   }
   to {
@@ -1334,18 +1326,25 @@ header {
   align-items: center;
   justify-content: center;
   position: relative;
-   /* FIXED */
+  overflow: visible; /* FIXED */
   color: #e6faff;
   padding: 2rem;
-
-
+}
+.code-fly {
+  min-height: 100dvh;
+  height: auto;
+  overflow: visible; /* FIXED */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
 /* ===== FIX CANVAS LAYER ISSUE ===== */
 canvas {
   position: fixed;
   top: 0;
   left: 0;
   z-index: -1000; /* FIXED from -1 */
-  pointer-events:none;
 }
 /* KEEP EVERYTHING ELSE SAME BUT SAFE */
 .section {
@@ -1389,16 +1388,5 @@ canvas {
 }
 
 
-.projects,
-.tech-stack,
-.fake-terminal,
-footer,
-.tech-icons i,
-.project-card,
-.hero-content,
-.rocket,
-.ship {
-    position: relative;
-}
 
 
