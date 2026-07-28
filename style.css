@@ -681,6 +681,10 @@ footer {
   width: 30vh;
   display: block;
   z-index:9999;
+  transform:translateZ(0);
+backface-visibility:hidden;
+-webkit-backface-visibility:hidden;
+will-change:transform;
 }
 @keyframes flyAcross {
   0% {
@@ -709,6 +713,10 @@ footer {
   opacity: 0;
   rotate: 124deg;
   z-index:9998;
+  transform:translateZ(0);
+backface-visibility:hidden;
+-webkit-backface-visibility:hidden;
+will-change:transform;
 }
 #ship1 {
   left: 15%;
@@ -944,6 +952,11 @@ footer {
   transform: translateY(40px);
   opacity: 0;
   z-index: 1001;
+  position:relative;
+transform:translateZ(0);
+backface-visibility:hidden;
+-webkit-backface-visibility:hidden;
+will-change:transform;
 }
 .bye-section,
 .glow-bg {
@@ -1054,6 +1067,10 @@ footer {
   overflow: hidden;
   color: #e6faff;
   padding: 2rem;
+  position:relative;
+transform:translateZ(0);
+backface-visibility:hidden;
+-webkit-backface-visibility:hidden;
 }
 .hero-content {
   z-index: 50;
@@ -1138,6 +1155,9 @@ footer {
   opacity: 0;
   transform: translateY(-150px) rotateX(90deg) scale(0.5);
   animation: 1.6s ease-out 4s forwards drop;
+  transform:translateZ(0);
+backface-visibility:hidden;
+-webkit-backface-visibility:hidden;
 }
 @keyframes drop {
   0% {
@@ -1326,7 +1346,7 @@ header {
   align-items: center;
   justify-content: center;
   position: relative;
-  overflow: visible; /* FIXED */
+   /* FIXED */
   color: #e6faff;
   padding: 2rem;
 }
@@ -1345,6 +1365,8 @@ canvas {
   top: 0;
   left: 0;
   z-index: -1000; /* FIXED from -1 */
+  pointer-events:none;
+transform:translateZ(0);
 }
 /* KEEP EVERYTHING ELSE SAME BUT SAFE */
 .section {
@@ -1392,6 +1414,16 @@ canvas {
 }
 
 
-
+.projects,
+.tech-stack,
+.fake-terminal,
+footer,
+.tech-icons i,
+.project-card,
+.hero-content,
+.rocket,
+.ship {
+    position: relative;
+}
 
 
