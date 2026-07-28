@@ -181,30 +181,18 @@ function scrollToTop() {
 /* =========================
    INTERSECTION OBSERVER
 ========================= */
-
-const animatedElements = document.querySelectorAll(".fade-in, .project-card");
-
-if ("IntersectionObserver" in window) {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    {
-      root: null,
-      threshold: 0.1,
-      rootMargin: "0px 0px -10% 0px",
+const observer = new IntersectionObserver(
+  (entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) e.target.classList.add("visible");
     }
-  );
+  },
+  { threshold: 0.2 },
+);
 
-  animatedElements.forEach((el) => observer.observe(el));
-} else {
-  animatedElements.forEach((el) => el.classList.add("visible"));
-}
+document
+  .querySelectorAll(".fade-in, .project-card")
+  .forEach((el) => observer.observe(el));
 
 /* =========================
    ROCKET LAUNCH (INP SAFE)
