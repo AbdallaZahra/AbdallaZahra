@@ -264,6 +264,30 @@ function setupRocketLaunch() {
     startFallingShips();
   };
 
+  // After the CSS launch animation finishes, freeze the rocket
+  // in the document so it stays where it landed and scrolls with the page.
+  const handleLanding = () => {
+    const rect = rocket.getBoundingClientRect();
+    const computed = window.getComputedStyle(rocket);
+    const transform = computed.transform || "";
+
+    // Convert viewport coords to document coords
+    const absTop = rect.top + window.scrollY;
+    const absLeft = rect.left + window.scrollX;
+
+    // Freeze final transform and position
+    rocket.style.animation = "none";
+    rocket.style.position = "absolute";
+    rocket.style.top = absTop + "px";
+    rocket.style.left = absLeft + "px";
+    rocket.style.transform = transform;
+
+    // remove listener (one-time)
+    rocket.removeEventListener("animationend", handleLanding);
+  };
+
+  rocket.addEventListener("animationend", handleLanding, { once: true });
+
   overlay.addEventListener("click", launchRocket, {
     once: true,
     passive: false,
