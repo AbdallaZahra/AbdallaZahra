@@ -1347,9 +1347,13 @@ canvas {
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: -1; /* keep canvas behind content but above the page background */
+  z-index: 0; /* bring the particle canvas above the page background */
   pointer-events: none;
-  background-color: #000;
+  background: transparent;
+}
+body > *:not(canvas) {
+  position: relative;
+  z-index: 1;
 }
 /* KEEP EVERYTHING ELSE SAME BUT SAFE */
 .section {
