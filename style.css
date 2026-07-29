@@ -1208,7 +1208,7 @@ footer {
     font-size: 2.3rem;
   }
   body {
-    background: radial-gradient(circle at 50% 20%, #d8f3dc, #a2d2ff 80%);
+    background-color: #000;
     overflow-x: hidden;
   }
   .welcome {
@@ -1344,10 +1344,12 @@ header {
 /* ===== FIX CANVAS LAYER ISSUE ===== */
 canvas {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   z-index: -1; /* keep canvas behind content but above the page background */
   pointer-events: none;
+  background-color: #000;
 }
 /* KEEP EVERYTHING ELSE SAME BUT SAFE */
 .section {
@@ -1391,3 +1393,4 @@ canvas {
   .code-fly {
     min-height: 100dvh;
   }
+}
