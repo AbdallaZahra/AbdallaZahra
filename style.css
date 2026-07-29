@@ -1378,6 +1378,18 @@ canvas {
     box-shadow: none !important;
   }
 }
+.project-card,
+.ship,
+.rocket,
+.code-particle,
+.code-fly,
+.tech-stack,
+.fake-terminal {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    animation: none !important;
+}
 
 
 
