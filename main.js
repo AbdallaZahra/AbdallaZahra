@@ -199,7 +199,7 @@ document
    ROCKET LAUNCH (INP SAFE)
 ========================= */
 
-document.addEventListener("DOMContentLoaded", () => {
+function setupRocketLaunch() {
   const rocket = document.getElementById("rocket");
   const sound = document.getElementById("rocketSound");
   if (!rocket) return;
@@ -218,8 +218,9 @@ document.addEventListener("DOMContentLoaded", () => {
   justify-content: center;
   font-size: clamp(1rem, 4vw, 1.6rem);
   font-weight: 600;
-  z-index: 9999;
+  z-index: 99999;
   cursor: pointer;
+  pointer-events: auto;
 `;
 
   document.body.appendChild(overlay);
@@ -242,7 +243,13 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     { once: true },
   );
-});
+}
+
+if (document.body) {
+  setupRocketLaunch();
+} else {
+  document.addEventListener("DOMContentLoaded", setupRocketLaunch);
+}
 
 /* =========================
    BACKGROUND MUSIC (SAFE)
