@@ -53,8 +53,7 @@ function animate(time = 0) {
   }
   lastFrame = time;
 
-  ctx.fillStyle = "#000";
-  ctx.fillRect(0, 0, cw, ch);
+  ctx.clearRect(0, 0, cw, ch);
 
   ctx.fillStyle = "#0ff";
   for (const p of particles) {
