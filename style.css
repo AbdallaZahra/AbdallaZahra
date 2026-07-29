@@ -1297,8 +1297,7 @@ footer {
   padding: 0;
   box-sizing: border-box;
 }
-html,
-body {
+html {
   width: 100%;
   overflow-x: hidden;
   background-color: #000;
@@ -1308,7 +1307,7 @@ body {
   line-height: 1.6;
   color: #e6faff;
   overflow-x: hidden;
-  background-color: #000;
+  background: transparent;
 }
 /* ===== FIX: REMOVE BROKEN VH USAGE ===== */
 header {
@@ -1351,7 +1350,15 @@ canvas {
   pointer-events: none;
   background: transparent;
 }
-body > *:not(canvas) {
+body > header,
+body > section,
+body > footer,
+body > button,
+body > .intro-line,
+body > .rocket-line,
+body > #rocket,
+body > #ship1,
+body > #ship2 {
   position: relative;
   z-index: 1;
 }
