@@ -666,9 +666,7 @@ footer {
   width: 120px;
   transform: rotate(45deg);
   display: block;
-  opacity: 0;
-  visibility: hidden;
-  animation: 40s ease-in-out forwards flyAcross;
+  animation: none;
 }
 .rocket {
   width: 30vh;
