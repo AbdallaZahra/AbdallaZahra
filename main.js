@@ -28,7 +28,7 @@ resizeCanvas();
 ========================= */
 
 const isMobile = window.matchMedia("(max-width: 768px)").matches;
-const rocketDuration = isMobile ? 4.5 : 7;
+const rocketDuration = isMobile ? 6.5 : 10;
 let particles = [];
 let animationId = null;
 let lastFrame = 0;
