@@ -28,23 +28,26 @@ resizeCanvas();
 ========================= */
 
 const isMobile = window.matchMedia("(max-width: 768px)").matches;
-const PARTICLE_COUNT = isMobile ? 40 : 100;
 const rocketDuration = isMobile ? 4.5 : 7;
-
-const particles = [];
-for (let i = 0; i < PARTICLE_COUNT; i++) {
-  particles.push({
-    x: Math.random() * cw,
-    y: Math.random() * ch,
-    r: Math.random() * 2,
-    dx: (Math.random() - 0.5) * 0.4,
-    dy: (Math.random() - 0.5) * 0.4,
-  });
-}
-
+let particles = [];
 let animationId = null;
 let lastFrame = 0;
 let bgMusic = null;
+
+function createParticles() {
+  const PARTICLE_COUNT = isMobile ? 40 : 100;
+  particles = [];
+
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    particles.push({
+      x: Math.random() * cw,
+      y: Math.random() * ch,
+      r: Math.random() * 2,
+      dx: (Math.random() - 0.5) * 0.4,
+      dy: (Math.random() - 0.5) * 0.4,
+    });
+  }
+}
 
 function animate(time = 0) {
   if (time - lastFrame < 32) {
@@ -54,8 +57,8 @@ function animate(time = 0) {
   lastFrame = time;
 
   ctx.clearRect(0, 0, cw, ch);
-
   ctx.fillStyle = "#0ff";
+
   for (const p of particles) {
     p.x += p.dx;
     p.y += p.dy;
@@ -71,10 +74,76 @@ function animate(time = 0) {
   animationId = requestAnimationFrame(animate);
 }
 
-/* Start animation AFTER first paint */
-requestAnimationFrame(() => requestAnimationFrame(animate));
+function createCodeParticles() {
+  const codeSnippets = [
+    'console.log("Hello World");',
+    '<div class="magic"></div>',
+    "let x = 42;",
+    'const design = "clean";',
+    "function animate() {}",
+    ".className { color: #0ff; }",
+  ];
 
-document.addEventListener("visibilitychange", () => {
+  const container = document.getElementById("codeParticles");
+  const CODE_PARTICLES = isMobile ? 20 : 50;
+  if (!container) return;
+
+  const fragment = document.createDocumentFragment();
+
+  for (let i = 0; i < CODE_PARTICLES; i++) {
+    const el = document.createElement("div");
+    el.className = "code-particle";
+    el.style.left = Math.random() * 100 + "vw";
+    el.style.top = Math.random() * 100 + "vh";
+    el.style.fontSize = 0.8 + Math.random() * 1.2 + "rem";
+    el.style.animationDuration = 6 + Math.random() * 4 + "s";
+    el.textContent =
+      codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+    fragment.appendChild(el);
+  }
+
+  container.appendChild(fragment);
+}
+
+function initPage() {
+  createParticles();
+  requestAnimationFrame(() => requestAnimationFrame(animate));
+  createCodeParticles();
+  setupIntersectionObserver();
+  setupRocketLaunch();
+}
+
+function scheduleStartup() {
+  const safeIdleCallback =
+    window.requestIdleCallback?.bind(window) ||
+    ((callback) => window.setTimeout(callback, 300));
+
+  requestAnimationFrame(initPage);
+  safeIdleCallback(typeLine);
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", scheduleStartup);
+} else {
+  scheduleStartup();
+}
+
+function setupIntersectionObserver() {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) e.target.classList.add("visible");
+      }
+    },
+    { threshold: 0.2 },
+  );
+
+  document
+    .querySelectorAll(".fade-in, .project-card")
+    .forEach((el) => observer.observe(el));
+}
+
+window.addEventListener("visibilitychange", () => {
   if (document.hidden) cancelAnimationFrame(animationId);
   else requestAnimationFrame(animate);
 });
@@ -128,39 +197,6 @@ function typeLine() {
   }
 }
 
-/* Run after idle */
-requestIdleCallback
-  ? requestIdleCallback(typeLine)
-  : setTimeout(typeLine, 1000);
-
-/* =========================
-   FLOATING CODE PARTICLES (REDUCED)
-========================= */
-
-const codeSnippets = [
-  'console.log("Hello World");',
-  '<div class="magic"></div>',
-  "let x = 42;",
-  'const design = "clean";',
-  "function animate() {}",
-  ".className { color: #0ff; }",
-];
-
-const container = document.getElementById("codeParticles");
-const CODE_PARTICLES = isMobile ? 20 : 50;
-
-for (let i = 0; i < CODE_PARTICLES; i++) {
-  const el = document.createElement("div");
-  el.className = "code-particle";
-  el.style.left = Math.random() * 100 + "vw";
-  el.style.top = Math.random() * 100 + "vh";
-  el.style.fontSize = 0.8 + Math.random() * 1.2 + "rem";
-  el.style.animationDuration = 6 + Math.random() * 4 + "s";
-  el.textContent =
-    codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
-  container.appendChild(el);
-}
-
 /* =========================
    SCROLL TO TOP (PASSIVE)
 ========================= */
@@ -178,22 +214,6 @@ window.addEventListener(
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
-
-/* =========================
-   INTERSECTION OBSERVER
-========================= */
-const observer = new IntersectionObserver(
-  (entries) => {
-    for (const e of entries) {
-      if (e.isIntersecting) e.target.classList.add("visible");
-    }
-  },
-  { threshold: 0.2 },
-);
-
-document
-  .querySelectorAll(".fade-in, .project-card")
-  .forEach((el) => observer.observe(el));
 
 /* =========================
    ROCKET LAUNCH (INP SAFE)
@@ -253,14 +273,6 @@ function setupRocketLaunch() {
     passive: false,
   });
 }
-
-if (document.body) {
-  setupRocketLaunch();
-} else {
-  document.addEventListener("DOMContentLoaded", setupRocketLaunch);
-}
-
-window.addEventListener("load", setupRocketLaunch);
 
 /* =========================
    BACKGROUND MUSIC (SAFE)
