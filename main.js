@@ -228,6 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
     () => {
       overlay.remove();
       rocket.style.display = "block";
+      rocket.style.opacity = "1";
 
       requestAnimationFrame(() => {
         rocket.style.animation = "flyAcross 7s ease-in-out forwards";
@@ -282,22 +283,14 @@ document.addEventListener("DOMContentLoaded", () => {
 ========================= */
 
 window.addEventListener("load", () => {
-  requestIdleCallback?.(() => {
+  const safeIdleCallback =
+    window.requestIdleCallback?.bind(window) ||
+    ((callback) => window.setTimeout(callback, 200));
+
+  safeIdleCallback(() => {
     ["ship1", "ship2"].forEach((id) => {
       const el = document.getElementById(id);
       el && (el.style.animation = "fall 11s linear forwards");
     });
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
