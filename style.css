@@ -1390,25 +1390,132 @@ canvas {
   }
 }
 
-/* Safari fix */
-.fade-in,
-.project-card {
-  opacity: 1;
-  visibility: visible;
-  transform: none;
+/* =======================================================
+   iPHONE / iOS WEBKIT COMPATIBILITY PATCH
+   Keep this at the VERY END of style.css
+   ======================================================= */
+
+@supports (-webkit-touch-callout: none) {
+@media screen and (max-width:900px){
+
+    html{
+        overflow-x:hidden;
+        -webkit-text-size-adjust:100%;
+    }
+
+    body{
+        overflow-x:hidden;
+        -webkit-overflow-scrolling:touch;
+    }
+
+    /* ---------- GPU Rendering ---------- */
+
+    .project-card,
+    .ship,
+    .rocket,
+    .code-particle,
+    .code-fly,
+    .hero-content,
+    .tech-stack,
+    .fake-terminal,
+    .projects-grid{
+
+        -webkit-transform:translateZ(0);
+        transform:translateZ(0);
+
+        -webkit-backface-visibility:hidden;
+        backface-visibility:hidden;
+
+        will-change:transform,opacity;
+    }
+
+    /* ---------- Project Cards ---------- */
+
+    .project-card{
+
+        opacity:1 !important;
+        visibility:visible !important;
+
+        -webkit-transform:translateZ(0);
+        transform:translateZ(0);
+
+    }
+
+    /* ---------- Ships ---------- */
+
+    .ship{
+
+        opacity:1 !important;
+        visibility:visible !important;
+
+    }
+
+    /* ---------- Rocket ---------- */
+
+    .rocket-container{
+
+        display:flex !important;
+
+    }
+
+    .rocket{
+
+        visibility:visible !important;
+        opacity:1 !important;
+
+    }
+
+    /* ---------- Flying Code ---------- */
+
+    .code-fly{
+
+        display:block !important;
+        visibility:visible !important;
+        opacity:1 !important;
+
+        overflow:visible !important;
+
+    }
+
+    .code-particles{
+
+        overflow:visible !important;
+
+    }
+
+    .code-particle{
+
+        display:block !important;
+        visibility:visible !important;
+
+    }
+
+    /* ---------- Canvas ---------- */
+
+    canvas{
+
+        pointer-events:none;
+        -webkit-transform:translateZ(0);
+        transform:translateZ(0);
+
+    }
+
+    /* ---------- Glassmorphism ---------- */
+
+    .project-card,
+    .fake-terminal{
+
+        -webkit-backdrop-filter:blur(12px);
+
+    }
+
+    /* ---------- clip-path ---------- */
+
+    header{
+
+        -webkit-clip-path:inherit;
+
+    }
+
 }
-.js .fade-in {
-  opacity: 0;
-  transform: translateY(24px);
-  transition:
-    opacity 0.6s ease,
-    transform 0.6s ease;
-}
-.js .fade-in.visible {
-  opacity: 1;
-  transform: none;
-}
-#bgCanvas {
-  z-index: -1;
-  pointer-events: none;
 }
