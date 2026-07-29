@@ -666,7 +666,6 @@ footer {
   left: -150px;
   width: 120px;
   transform: rotate(45deg);
-  display: none;
   animation: 40s ease-in-out forwards flyAcross;
 }
 .rocket {
@@ -697,7 +696,7 @@ footer {
 }
 .ship {
   width: 25vh;
-  opacity: 0;
+  display: block;
   rotate: 124deg;
 }
 #ship1 {
@@ -1408,26 +1407,6 @@ canvas {
         -webkit-overflow-scrolling:touch;
     }
 
-    /* ---------- GPU Rendering ---------- */
-
-    .project-card,
-    .ship,
-    .rocket,
-    .code-particle,
-    .code-fly,
-    .hero-content,
-    .tech-stack,
-    .fake-terminal,
-    .projects-grid{
-
-        -webkit-transform:translateZ(0);
-        transform:translateZ(0);
-
-        -webkit-backface-visibility:hidden;
-        backface-visibility:hidden;
-
-        will-change:transform,opacity;
-    }
 
     /* ---------- Project Cards ---------- */
 
@@ -1436,35 +1415,11 @@ canvas {
         opacity:1 !important;
         visibility:visible !important;
 
-        -webkit-transform:translateZ(0);
-        transform:translateZ(0);
+      
 
     }
 
-    /* ---------- Ships ---------- */
-
-    .ship{
-
-        opacity:1 !important;
-        visibility:visible !important;
-
-    }
-
-    /* ---------- Rocket ---------- */
-
-    .rocket-container{
-
-        display:flex !important;
-
-    }
-
-    .rocket{
-
-        visibility:visible !important;
-        opacity:1 !important;
-
-    }
-
+   
     /* ---------- Flying Code ---------- */
 
     .code-fly{
@@ -1499,23 +1454,5 @@ canvas {
         transform:translateZ(0);
 
     }
-
-    /* ---------- Glassmorphism ---------- */
-
-    .project-card,
-    .fake-terminal{
-
-        -webkit-backdrop-filter:blur(12px);
-
-    }
-
-    /* ---------- clip-path ---------- */
-
-    header{
-
-        -webkit-clip-path:inherit;
-
-    }
-
 }
 }
