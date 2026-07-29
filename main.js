@@ -221,31 +221,30 @@ function setupRocketLaunch() {
   justify-content: center;
   font-size: clamp(1rem, 4vw, 1.6rem);
   font-weight: 600;
-  z-index: 99999;
+  z-index: 100000;
   cursor: pointer;
   pointer-events: auto;
 `;
 
   document.body.appendChild(overlay);
 
-  overlay.addEventListener(
-    "click",
-    () => {
-      overlay.remove();
-      rocket.style.display = "block";
-      rocket.style.opacity = "1";
-      rocket.style.visibility = "visible";
+  const launchRocket = () => {
+    overlay.remove();
+    rocket.style.display = "block";
+    rocket.style.opacity = "1";
+    rocket.style.visibility = "visible";
 
-      requestAnimationFrame(() => {
-        rocket.style.animation = "flyAcross 7s ease-in-out forwards";
-      });
+    requestAnimationFrame(() => {
+      rocket.style.animation = `flyAcross ${rocketDuration}s ease-in-out forwards`;
+    });
 
-      sound?.play().catch(() => {});
-      bgMusic?.play().catch(() => {});
-      startFallingShips();
-    },
-    { once: true },
-  );
+    sound?.play().catch(() => {});
+    bgMusic?.play().catch(() => {});
+    startFallingShips();
+  };
+
+  overlay.addEventListener("click", launchRocket, { once: true });
+  overlay.addEventListener("touchstart", launchRocket, { once: true });
 }
 
 if (document.body) {
