@@ -29,6 +29,7 @@ resizeCanvas();
 
 const isMobile = window.matchMedia("(max-width: 768px)").matches;
 const PARTICLE_COUNT = isMobile ? 40 : 100;
+const rocketDuration = isMobile ? 4.2 : 7;
 
 const particles = [];
 for (let i = 0; i < PARTICLE_COUNT; i++) {
@@ -237,7 +238,7 @@ function setupRocketLaunch() {
       rocket.style.visibility = "visible";
 
       requestAnimationFrame(() => {
-        rocket.style.animation = "flyAcross 7s ease-in-out forwards";
+        rocket.style.animation = `flyAcross ${rocketDuration}s ease-in-out forwards`;
       });
 
       sound?.play().catch(() => {});
