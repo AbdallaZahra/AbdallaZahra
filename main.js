@@ -43,6 +43,7 @@ for (let i = 0; i < PARTICLE_COUNT; i++) {
 
 let animationId = null;
 let lastFrame = 0;
+let bgMusic = null;
 
 function animate(time = 0) {
   if (time - lastFrame < 32) {
@@ -229,12 +230,15 @@ document.addEventListener("DOMContentLoaded", () => {
       overlay.remove();
       rocket.style.display = "block";
       rocket.style.opacity = "1";
+      rocket.style.visibility = "visible";
 
       requestAnimationFrame(() => {
         rocket.style.animation = "flyAcross 7s ease-in-out forwards";
       });
 
       sound?.play().catch(() => {});
+      bgMusic?.play().catch(() => {});
+      startFallingShips();
     },
     { once: true },
   );
@@ -254,17 +258,21 @@ document.addEventListener("DOMContentLoaded", () => {
   music.volume = 0;
   document.body.appendChild(music);
 
-  setTimeout(() => {
-    music
-      .play()
-      .then(() => {
-        const fade = setInterval(() => {
-          music.volume = Math.min(0.06, music.volume + 0.01);
-          if (music.volume >= 0.06) clearInterval(fade);
-        }, 100);
-      })
-      .catch(() => {});
-  }, 8000);
+  bgMusic = music;
+
+  const fadeInMusic = () => {
+    const fade = setInterval(() => {
+      music.volume = Math.min(0.06, music.volume + 0.01);
+      if (music.volume >= 0.06) clearInterval(fade);
+    }, 100);
+  };
+
+  music
+    .play()
+    .then(fadeInMusic)
+    .catch(() => {
+      /* will start on user interaction */
+    });
 
   const toggle = document.getElementById("music-toggle");
   toggle?.addEventListener("click", () => {
@@ -282,15 +290,19 @@ document.addEventListener("DOMContentLoaded", () => {
    FALLING SHIPS (IDLE)
 ========================= */
 
+function startFallingShips() {
+  ["ship1", "ship2"].forEach((id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.style.opacity = "1";
+    el.style.animation = "fall 11s linear forwards";
+  });
+}
+
 window.addEventListener("load", () => {
   const safeIdleCallback =
     window.requestIdleCallback?.bind(window) ||
     ((callback) => window.setTimeout(callback, 200));
 
-  safeIdleCallback(() => {
-    ["ship1", "ship2"].forEach((id) => {
-      const el = document.getElementById(id);
-      el && (el.style.animation = "fall 11s linear forwards");
-    });
-  });
+  safeIdleCallback(startFallingShips);
 });
