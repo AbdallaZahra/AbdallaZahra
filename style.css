@@ -674,7 +674,7 @@ footer {
   left: -150px;
   width: 120px;
   transform: rotate(45deg);
-  display: none;
+  
   animation: 40s ease-in-out forwards flyAcross;
 }
 .rocket {
