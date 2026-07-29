@@ -1346,7 +1346,8 @@ canvas {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: -1000; /* FIXED from -1 */
+  z-index: -1; /* keep canvas behind content but above the page background */
+  pointer-events: none;
 }
 /* KEEP EVERYTHING ELSE SAME BUT SAFE */
 .section {
@@ -1390,4 +1391,3 @@ canvas {
   .code-fly {
     min-height: 100dvh;
   }
-}
