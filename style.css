@@ -1301,12 +1301,14 @@ html,
 body {
   width: 100%;
   overflow-x: hidden;
+  background-color: #000;
 }
 body {
   font-weight: 400;
   line-height: 1.6;
   color: #e6faff;
   overflow-x: hidden;
+  background-color: #000;
 }
 /* ===== FIX: REMOVE BROKEN VH USAGE ===== */
 header {
