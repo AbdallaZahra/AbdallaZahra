@@ -200,6 +200,8 @@ document
 ========================= */
 
 function setupRocketLaunch() {
+  if (document.getElementById("rocket-launch-overlay")) return;
+
   const rocket = document.getElementById("rocket");
   const sound = document.getElementById("rocketSound");
   if (!rocket) return;
@@ -207,6 +209,7 @@ function setupRocketLaunch() {
   rocket.style.display = "none";
 
   const overlay = document.createElement("div");
+  overlay.id = "rocket-launch-overlay";
   overlay.textContent = "Tap to launch the rocket 🚀";
   overlay.style.cssText = `
   position: fixed;
@@ -250,6 +253,8 @@ if (document.body) {
 } else {
   document.addEventListener("DOMContentLoaded", setupRocketLaunch);
 }
+
+window.addEventListener("load", setupRocketLaunch);
 
 /* =========================
    BACKGROUND MUSIC (SAFE)
