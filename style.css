@@ -383,9 +383,8 @@ footer {
 }
 .rocket-container,
 .ship {
-  position: fixed;
+  position: absolute;
   top: -150px;
-  z-index: 20;
 }
 .code-particle {
   position: absolute;
