@@ -665,7 +665,9 @@ footer {
   left: -150px;
   width: 120px;
   transform: rotate(45deg);
-  display: none;
+  display: block;
+  opacity: 0;
+  visibility: hidden;
   animation: 40s ease-in-out forwards flyAcross;
 }
 .rocket {
@@ -698,6 +700,7 @@ footer {
   width: 25vh;
   opacity: 1;
   transform: rotate(124deg);
+  animation: fall 11s linear forwards;
 }
 #ship1 {
   left: 15%;
