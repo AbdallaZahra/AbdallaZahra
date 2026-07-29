@@ -1339,6 +1339,21 @@ canvas {
 .section {
   padding: 5rem 2rem;
 }
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
+  gap: 2rem;
+  padding: 0 2rem;
+}
+.project-card {
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 15px rgba(0,255,255,0.2);
+}
+.project-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* ===== MOBILE FIXES ===== */
 @media (max-width: 768px) {
   header {
@@ -1349,5 +1364,18 @@ canvas {
   }
   .code-fly {
     min-height: 80dvh;
+  }
+  /* PERFORMANCE FIX */
+  * {
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+}
+/* ===== OPTIONAL: MODERN IOS FIX ===== */
+@supports (height: 100dvh) {
+  header,
+  .hero-section,
+  .code-fly {
+    min-height: 100dvh;
   }
 }
