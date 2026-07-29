@@ -29,6 +29,7 @@ resizeCanvas();
 
 const isMobile = window.matchMedia("(max-width: 768px)").matches;
 const PARTICLE_COUNT = isMobile ? 40 : 100;
+const rocketDuration = isMobile ? 4.5 : 7;
 
 const particles = [];
 for (let i = 0; i < PARTICLE_COUNT; i++) {
@@ -228,7 +229,8 @@ function setupRocketLaunch() {
 
   document.body.appendChild(overlay);
 
-  const launchRocket = () => {
+  const launchRocket = (event) => {
+    event.preventDefault();
     overlay.remove();
     rocket.style.display = "block";
     rocket.style.opacity = "1";
@@ -243,8 +245,14 @@ function setupRocketLaunch() {
     startFallingShips();
   };
 
-  overlay.addEventListener("click", launchRocket, { once: true });
-  overlay.addEventListener("touchstart", launchRocket, { once: true });
+  overlay.addEventListener("click", launchRocket, {
+    once: true,
+    passive: false,
+  });
+  overlay.addEventListener("touchstart", launchRocket, {
+    once: true,
+    passive: false,
+  });
 }
 
 if (document.body) {
