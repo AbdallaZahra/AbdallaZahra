@@ -979,6 +979,16 @@ footer {
   transform: translateY(0);
   transition: 0.5s;
 }
+
+@media (max-width: 768px) {
+  .project-card,
+  .fade-in {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+  }
+}
+
 .bye-section::after,
 .bye-section::before,
 .glow-bg::after,
@@ -1252,7 +1262,7 @@ footer {
   font-size: 1.5rem;
 }
 @media (max-width: 768px) {
- .welcome span {
+  .welcome span {
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
     animation-duration: 4s;
@@ -1268,7 +1278,7 @@ footer {
     text-shadow: none !important;
     box-shadow: none !important;
   }
-   html,
+  html,
   body {
     width: 100%;
   }
@@ -1286,7 +1296,8 @@ footer {
   padding: 0;
   box-sizing: border-box;
 }
-html, body {
+html,
+body {
   width: 100%;
   overflow-x: hidden;
 }
@@ -1346,7 +1357,7 @@ canvas {
 }
 .project-card {
   background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 0 15px rgba(0,255,255,0.2);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
 }
 .project-card.visible {
   opacity: 1;
