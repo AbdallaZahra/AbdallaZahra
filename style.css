@@ -696,8 +696,8 @@ footer {
 }
 .ship {
   width: 25vh;
-  opacity: 0;
-  rotate: 124deg;
+  opacity: 1;
+  transform: rotate(124deg);
 }
 #ship1 {
   left: 15%;
