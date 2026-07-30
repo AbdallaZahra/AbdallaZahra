@@ -82,10 +82,14 @@ function createCodeParticles() {
     'const design = "clean";',
     "function animate() {}",
     ".className { color: #0ff; }",
+    "if (magic) { createWonder(); }",
+    'const glow = "neon";',
+    "return <CodeJourney />;",
+    "npm run build",
   ];
 
   const container = document.getElementById("codeParticles");
-  const CODE_PARTICLES = isMobile ? 20 : 50;
+  const CODE_PARTICLES = isMobile ? 70 : 140;
   if (!container) return;
 
   const fragment = document.createDocumentFragment();
@@ -93,10 +97,19 @@ function createCodeParticles() {
   for (let i = 0; i < CODE_PARTICLES; i++) {
     const el = document.createElement("div");
     el.className = "code-particle";
-    el.style.left = Math.random() * 100 + "vw";
-    el.style.top = Math.random() * 100 + "vh";
-    el.style.fontSize = 0.8 + Math.random() * 1.2 + "rem";
-    el.style.animationDuration = 6 + Math.random() * 4 + "s";
+
+    const startLeft = Math.random() * 100;
+    const startTop = -15 - Math.random() * 25;
+    const driftX = (Math.random() - 0.5) * 260;
+    const duration = 7 + Math.random() * 6;
+
+    el.style.setProperty("--start-left", `${startLeft}%`);
+    el.style.setProperty("--start-top", `${startTop}%`);
+    el.style.setProperty("--drift-x", `${driftX}px`);
+    el.style.animationDuration = `${duration}s`;
+    el.style.fontSize = `${0.75 + Math.random() * 1.1}rem`;
+    el.style.opacity = `${0.45 + Math.random() * 0.35}`;
+
     el.textContent =
       codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
     fragment.appendChild(el);
