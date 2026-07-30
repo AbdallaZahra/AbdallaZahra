@@ -308,17 +308,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 100);
   };
 
-  music
-    .play()
-    .then(fadeInMusic)
-    .catch(() => {
-      /* will start on user interaction */
-    });
-
   const toggle = document.getElementById("music-toggle");
   toggle?.addEventListener("click", () => {
     if (music.paused) {
-      music.play().catch(() => {});
+      startBackgroundMusic();
+      fadeInMusic();
       toggle.textContent = "🔊";
     } else {
       music.pause();
