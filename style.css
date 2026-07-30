@@ -301,22 +301,26 @@ header p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.7rem;
+  justify-content: center;
+  gap: 0.75rem;
   text-align: center;
 }
 .tech-item i {
   font-size: 7rem;
   color: #fff;
+  display: block;
   transition:
     transform 0.4s ease,
     color 0.3s ease,
     text-shadow 0.3s ease;
 }
 .tech-item span {
+  display: block;
   font-size: 1rem;
   color: #dffcff;
   font-weight: 600;
   letter-spacing: 0.04em;
+  line-height: 1.2;
 }
 .tech-item:hover i {
   transform: scale(1.25);
