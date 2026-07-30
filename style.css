@@ -365,20 +365,50 @@ footer {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  position: relative;
+  padding: 3rem 2rem;
+  margin: 2rem 0;
+  border-radius: 2rem;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(0, 255, 255, 0.16),
+      transparent 32%
+    ),
+    linear-gradient(135deg, rgba(7, 20, 40, 0.96), rgba(3, 10, 22, 0.97));
+  border: 1px solid rgba(0, 255, 255, 0.18);
+  box-shadow:
+    0 0 60px rgba(0, 255, 255, 0.14),
+    inset 0 0 40px rgba(0, 255, 255, 0.08);
+}
+.code-fly::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 30px 30px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent);
+  pointer-events: none;
 }
 .code-fly h2 {
-  z-index: 50;
+  z-index: 20;
   color: #0ff;
-  margin-bottom: 2rem;
+  margin-bottom: 0.7rem;
+  text-shadow: 0 0 18px rgba(0, 255, 255, 0.45);
 }
 .code-particles {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   pointer-events: none;
   overflow: hidden;
+  border-radius: 2rem;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 255, 255, 0.05),
+    transparent 60%
+  );
 }
 .rocket-container,
 .ship {
@@ -387,11 +417,16 @@ footer {
 }
 .code-particle {
   position: absolute;
+  left: var(--start-left, 50%);
+  top: var(--start-top, -8%);
   font-size: 1rem;
-  color: #0fe;
+  color: #7efaff;
   opacity: 0.7;
   animation: 10s linear infinite floatCode;
   white-space: nowrap;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.55);
+  will-change: transform, opacity;
+  filter: drop-shadow(0 0 6px rgba(0, 255, 255, 0.35));
 }
 .bye-section,
 .impact-section {
@@ -399,14 +434,14 @@ footer {
 }
 @keyframes floatCode {
   0% {
-    transform: translateY(100vh) rotate(0);
+    transform: translate3d(0, 0, 0);
     opacity: 0;
   }
-  50% {
+  12% {
     opacity: 1;
   }
   100% {
-    transform: translateY(-100vh) rotate(360deg);
+    transform: translate3d(var(--drift-x, 0px), 120vh, 0) rotate(360deg);
     opacity: 0;
   }
 }
