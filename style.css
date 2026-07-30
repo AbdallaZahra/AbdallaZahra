@@ -700,9 +700,10 @@ footer {
 }
 .ship {
   width: 25vh;
-  opacity: 1;
+  opacity: 0;
+  visibility: hidden;
   transform: rotate(124deg);
-  animation: fall 11s linear forwards;
+  animation: none;
 }
 #ship1 {
   left: 15%;
@@ -791,7 +792,7 @@ footer {
   }
   #ship2 {
     top: 45%;
-    left: 60%;
+    left: 57%;
   }
 
   @keyframes flyAcross {
