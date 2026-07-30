@@ -89,7 +89,7 @@ function createCodeParticles() {
   ];
 
   const container = document.getElementById("codeParticles");
-  const CODE_PARTICLES = isMobile ? 50 : 90;
+  const CODE_PARTICLES = isMobile ? 48 : 90;
   if (!container) return;
 
   const fragment = document.createDocumentFragment();
@@ -98,17 +98,17 @@ function createCodeParticles() {
     const el = document.createElement("div");
     el.className = "code-particle";
 
-    const startLeft = Math.random() * 100;
-    const startTop = -12 - Math.random() * 10;
-    const driftX = (Math.random() - 0.5) * 220;
-    const duration = 9 + Math.random() * 4;
+    const startLeft = (i / Math.max(CODE_PARTICLES - 1, 1)) * 100;
+    const startTop = -6 - (i % 3) * 2;
+    const driftX = (i % 2 === 0 ? -1 : 1) * (18 + Math.random() * 18);
+    const duration = 5.5 + Math.random() * 2;
 
     el.style.setProperty("--start-left", `${startLeft}%`);
     el.style.setProperty("--start-top", `${startTop}%`);
     el.style.setProperty("--drift-x", `${driftX}px`);
     el.style.animationDuration = `${duration}s`;
-    el.style.fontSize = `${0.8 + Math.random() * 0.8}rem`;
-    el.style.opacity = `${0.5 + Math.random() * 0.25}`;
+    el.style.fontSize = `${0.7 + Math.random() * 0.5}rem`;
+    el.style.opacity = `${0.45 + Math.random() * 0.2}`;
 
     el.textContent =
       codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
