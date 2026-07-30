@@ -324,15 +324,10 @@ function startFallingShips() {
   ["ship1", "ship2"].forEach((id) => {
     const el = document.getElementById(id);
     if (!el) return;
+
     el.style.opacity = "1";
+    el.style.visibility = "visible";
+    el.style.top = "-150px";
     el.style.animation = "fall 11s linear forwards";
   });
 }
-
-window.addEventListener("load", () => {
-  const safeIdleCallback =
-    window.requestIdleCallback?.bind(window) ||
-    ((callback) => window.setTimeout(callback, 200));
-
-  safeIdleCallback(startFallingShips);
-});
