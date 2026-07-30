@@ -260,7 +260,7 @@ function setupRocketLaunch() {
     });
 
     sound?.play().catch(() => {});
-    bgMusic?.play().catch(() => {});
+    startBackgroundMusic();
     startFallingShips();
   };
 
@@ -277,6 +277,17 @@ function setupRocketLaunch() {
 /* =========================
    BACKGROUND MUSIC (SAFE)
 ========================= */
+
+function startBackgroundMusic() {
+  if (!bgMusic) return;
+
+  bgMusic.currentTime = 0;
+  const playPromise = bgMusic.play();
+  if (playPromise) {
+    playPromise.catch(() => {});
+  }
+  bgMusic.volume = 0.06;
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   if (window.__bg_music__) return;
