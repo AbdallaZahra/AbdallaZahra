@@ -3,7 +3,7 @@
 ========================= */
 
 const canvas = document.getElementById("bgCanvas");
-const ctx = canvas.getContext("2d", { alpha: false });
+const ctx = canvas.getContext("2d", { alpha: true });
 
 const DPR = Math.min(window.devicePixelRatio || 1, 2);
 let cw = 0;
@@ -57,7 +57,7 @@ function animate(time = 0) {
   lastFrame = time;
 
   ctx.clearRect(0, 0, cw, ch);
-  ctx.fillStyle = "#0ff";
+  ctx.fillStyle = "rgba(56, 189, 248, 0.95)";
 
   for (const p of particles) {
     p.x += p.dx;
@@ -89,33 +89,49 @@ function createCodeParticles() {
   ];
 
   const container = document.getElementById("codeParticles");
-  const CODE_PARTICLES = isMobile ? 48 : 90;
   if (!container) return;
 
-  const fragment = document.createDocumentFragment();
+  // Spawn small bursts (1-2) periodically. Each burst fades in, scales toward viewer, then fades out in place.
+  function spawnBurst() {
+    const count = Math.random() < 0.35 ? 2 : 1; // sometimes two
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement("div");
+      el.className = "code-particle code-burst";
+      el.textContent =
+        codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
 
-  for (let i = 0; i < CODE_PARTICLES; i++) {
-    const el = document.createElement("div");
-    el.className = "code-particle";
+      // position anywhere inside the container (spread across area)
+      const left = 5 + Math.random() * 90; // avoid absolute edges
+      const top = 5 + Math.random() * 80;
+      el.style.setProperty("--start-left", `${left}%`);
+      el.style.setProperty("--start-top", `${top}%`);
 
-    const startLeft = (i / Math.max(CODE_PARTICLES - 1, 1)) * 100;
-    const startTop = -6 - (i % 3) * 2;
-    const driftX = (i % 2 === 0 ? -1 : 1) * (18 + Math.random() * 18);
-    const duration = 5.5 + Math.random() * 2;
+      // small random size / duration
+      el.style.fontSize = `${0.8 + Math.random() * 0.6}rem`;
+      const duration = 1.6 + Math.random() * 1.2;
+      el.style.animationDuration = `${duration}s`;
 
-    el.style.setProperty("--start-left", `${startLeft}%`);
-    el.style.setProperty("--start-top", `${startTop}%`);
-    el.style.setProperty("--drift-x", `${driftX}px`);
-    el.style.animationDuration = `${duration}s`;
-    el.style.fontSize = `${0.7 + Math.random() * 0.5}rem`;
-    el.style.opacity = `${0.45 + Math.random() * 0.2}`;
+      container.appendChild(el);
 
-    el.textContent =
-      codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
-    fragment.appendChild(el);
+      // remove when done
+      el.addEventListener(
+        "animationend",
+        () => {
+          el.remove();
+        },
+        { once: true },
+      );
+    }
+
+    // schedule next burst (randomized)
+    const next = isMobile
+      ? 350 + Math.random() * 550
+      : 500 + Math.random() * 900;
+    setTimeout(spawnBurst, next);
   }
 
-  container.appendChild(fragment);
+  // kick off after slight delay
+  setTimeout(spawnBurst, 600);
 }
 
 function initPage() {
@@ -178,17 +194,12 @@ window.addEventListener(
 
 const codeLines = [
   "const developer = {",
-  '  name: "Abdalla Zahra",',
-  '  role: "Front-End Developer",',
-  '  skills: ["HTML", "CSS", "JavaScript", "React", "Git"],',
-  '  passion: "Creating beautiful & magical UIs"',
+  '  name: <span class="token-string">"Abdalla Zahra"</span>,',
+  '  role: <span class="token-string">"Front-End Developer"</span>,',
+  '  skills: <span class="token-keyword">[</span><span class="token-string">"HTML"</span>, <span class="token-string">"CSS"</span>, <span class="token-string">"JavaScript"</span>, <span class="token-string">"SQL"</span>, <span class="token-string">"Git"</span><span class="token-keyword">]</span>,',
+  '  passion: <span class="token-string">"Creating beautiful & magical UIs"</span>',
   "};",
   "",
-  "function showCodeLove() {",
-  '  console.log("Welcome to my world of code ✨");',
-  "}",
-  "",
-  "showCodeLove();",
 ];
 
 let lineIndex = 0;
@@ -200,10 +211,10 @@ function typeLine() {
 
   const line = codeLines[lineIndex];
   if (charIndex < line.length) {
-    output.textContent += line[charIndex++];
+    output.innerHTML += line[charIndex++];
     setTimeout(typeLine, 40);
   } else {
-    output.textContent += "\n";
+    output.innerHTML += "\n";
     charIndex = 0;
     lineIndex++;
     setTimeout(typeLine, 200);
