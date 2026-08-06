@@ -1,555 +1,367 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+/* =========================
+   GLOBAL SETUP (SAFE)
+========================= */
 
-    <title>Abdalla Zahra | Front-End Developer</title>
+const canvas = document.getElementById("bgCanvas");
+const ctx = canvas.getContext("2d", { alpha: true });
 
-    <link rel="preconnect" href="https://abdalla-zahra.vercel.app" />
+const DPR = Math.min(window.devicePixelRatio || 1, 2);
+let cw = 0;
+let ch = 0;
 
-    <!-- Async CSS -->
-    <link rel="stylesheet" href="style.css" />
-    <noscript><link rel="stylesheet" href="style.css" /></noscript>
+function resizeCanvas() {
+  cw = window.innerWidth;
+  ch = window.innerHeight;
 
-    <link rel="icon" type="image/x-icon" href="images/pumpkin.webp" />
+  canvas.style.width = cw + "px";
+  canvas.style.height = ch + "px";
 
-    <!-- Correct image preload -->
-    <link rel="preload" as="image" href="images/11430160.webp" />
+  canvas.width = Math.floor(cw * DPR);
+  canvas.height = Math.floor(ch * DPR);
 
-    <!-- Font Awesome (ONLY ONCE, non-blocking) -->
-    <script
-      src="https://kit.fontawesome.com/0a72e85e24.js"
-      crossorigin="anonymous"
-      defer
-    ></script>
-  </head>
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+}
+resizeCanvas();
 
-  <body>
-    <button id="music-toggle">🔊</button>
-    <canvas id="bgCanvas"></canvas>
+/* =========================
+   CANVAS PARTICLES (MOBILE AWARE)
+========================= */
 
-    <nav class="top-nav" aria-label="Primary navigation">
-      <a href="#projects">Projects</a>
-      <a href="#tech-stack">Tech Stack</a>
-      <a href="#contact">Contact</a>
-      <a
-        class="nav-cta"
-        href="https://drive.google.com/file/d/1zA-qD60NPNM6-FteRD_g12_duc9FbpLm/view?usp=sharing"
-        target="_blank"
-        rel="noopener noreferrer"
-        >Download CV</a
-      >
-    </nav>
+const isMobile = window.matchMedia("(max-width: 768px)").matches;
+const rocketDuration = isMobile ? 6.5 : 10;
+let particles = [];
+let animationId = null;
+let lastFrame = 0;
+let bgMusic = null;
 
-    <header class="impact-section glow-bg hero-section">
-      <div class="welcome">
-        <span>W</span> <span>E</span> <span>L</span> <span>C</span>
-        <span>O</span> <span>M</span> <span>E</span>
-      </div>
-      <div class="hero-content">
-        <h1 class="hero-title">
-          I'm <span class="highlight">Abdalla Zahra</span>
-        </h1>
-        <p class="hero-subtitle">Web Developer & Designer</p>
-      </div>
-    </header>
+function createParticles() {
+  const PARTICLE_COUNT = isMobile ? 40 : 100;
+  particles = [];
 
-    <!-- Rocket -->
-    <div class="rocket-container" id="rocket">
-      <!-- Main Rocket -->
-      <svg class="rocket" viewBox="0 0 128 128" aria-label="Rocket">
-        <defs>
-          <linearGradient id="rocketBody" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#6DD5FA" />
-            <stop offset="100%" stop-color="#38BDF8" />
-          </linearGradient>
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    particles.push({
+      x: Math.random() * cw,
+      y: Math.random() * ch,
+      r: Math.random() * 2,
+      dx: (Math.random() - 0.5) * 0.4,
+      dy: (Math.random() - 0.5) * 0.4,
+    });
+  }
+}
 
-          <linearGradient id="purpleGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#C4B5FD" />
-            <stop offset="100%" stop-color="#A78BFA" />
-          </linearGradient>
+function animate(time = 0) {
+  if (time - lastFrame < 32) {
+    animationId = requestAnimationFrame(animate);
+    return;
+  }
+  lastFrame = time;
 
-          <linearGradient id="flameOuter" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#A78BFA" />
-            <stop offset="100%" stop-color="#38BDF8" />
-          </linearGradient>
+  ctx.clearRect(0, 0, cw, ch);
+  ctx.fillStyle = "rgba(56, 189, 248, 0.95)";
 
-          <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-            <feDropShadow
-              dx="0"
-              dy="4"
-              stdDeviation="4"
-              flood-color="#0F172A"
-              flood-opacity="0.35"
-            />
-          </filter>
-        </defs>
+  for (const p of particles) {
+    p.x += p.dx;
+    p.y += p.dy;
 
-        <g filter="url(#shadow)">
-          <!-- Main Body -->
-          <path
-            d="M64 8
-         C48 22 40 42 40 68
-         C40 88 50 102 64 114
-         C78 102 88 88 88 68
-         C88 42 80 22 64 8Z"
-            fill="url(#rocketBody)"
-          />
+    if (p.x < 0 || p.x > cw) p.dx *= -1;
+    if (p.y < 0 || p.y > ch) p.dy *= -1;
 
-          <!-- Dark Center -->
-          <path
-            d="M64 18
-         C54 30 49 46 49 66
-         C49 81 55 92 64 101
-         C73 92 79 81 79 66
-         C79 46 74 30 64 18Z"
-            fill="#0F172A"
-          />
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fill();
+  }
 
-          <!-- Window -->
-          <circle cx="64" cy="43" r="10" fill="#F8FAFC" />
-          <circle cx="64" cy="43" r="6" fill="#38BDF8" />
+  animationId = requestAnimationFrame(animate);
+}
 
-          <!-- Left Fin -->
-          <path
-            d="M40 64
-         L22 86
-         L44 83
-         L50 68Z"
-            fill="#38BDF8"
-          />
+function createCodeParticles() {
+  const codeSnippets = [
+    'console.log("Hello World");',
+    '<div class="magic"></div>',
+    "let x = 42;",
+    'const design = "clean";',
+    "function animate() {}",
+    ".className { color: #0ff; }",
+    "if (magic) { createWonder(); }",
+    'const glow = "neon";',
+    "return <CodeJourney />;",
+    "npm run build",
+  ];
 
-          <!-- Right Fin -->
-          <path
-            d="M88 64
-         L106 86
-         L84 83
-         L78 68Z"
-            fill="#38BDF8"
-          />
+  const container = document.getElementById("codeParticles");
+  if (!container) return;
 
-          <!-- Purple Wing Detail -->
-          <path
-            d="M48 70
-         C56 80 72 80 80 70
-         C76 86 70 92 64 92
-         C58 92 52 86 48 70Z"
-            fill="url(#purpleGlow)"
-          />
+  // Spawn small bursts (1-2) periodically. Each burst fades in, scales toward viewer, then fades out in place.
+  function spawnBurst() {
+    // FIX 1: Do not spawn new particles if the user is on another tab
+    if (document.hidden) {
+      const next = isMobile
+        ? 350 + Math.random() * 550
+        : 500 + Math.random() * 900;
+      setTimeout(spawnBurst, next);
+      return;
+    }
 
-          <!-- Engine -->
-          <path
-            d="M56 96
-         L72 96
-         L69 104
-         L59 104Z"
-            fill="#0F172A"
-          />
+    const count = Math.random() < 0.35 ? 2 : 1; // sometimes two
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement("div");
+      el.className = "code-particle code-burst";
+      el.textContent =
+        codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
 
-          <!-- Flame -->
-          <path
-            d="M64 104
-         C78 118 74 126 64 122
-         C54 126 50 118 64 104Z"
-            fill="url(#flameOuter)"
-          />
+      // position anywhere inside the container (spread across area)
+      const left = 5 + Math.random() * 90; // avoid absolute edges
+      const top = 5 + Math.random() * 80;
+      el.style.setProperty("--start-left", `${left}%`);
+      el.style.setProperty("--start-top", `${top}%`);
 
-          <path
-            d="M64 108
-         C70 116 68 120 64 118
-         C60 120 58 116 64 108Z"
-            fill="#F8FAFC"
-            opacity=".9"
-          />
+      // small random size / duration
+      el.style.fontSize = `${0.8 + Math.random() * 0.6}rem`;
+      const duration = 1.6 + Math.random() * 1.2;
+      el.style.animationDuration = `${duration}s`;
 
-          <!-- Nose -->
-          <path
-            d="M64 4
-         L72 18
-         L64 22
-         L56 18Z"
-            fill="#F8FAFC"
-          />
+      container.appendChild(el);
 
-          <!-- Gloss Highlight -->
-          <path
-            d="M54 26
-         C49 40 49 66 56 84"
-            stroke="#F8FAFC"
-            stroke-width="2"
-            stroke-linecap="round"
-            opacity=".35"
-          />
-        </g>
-      </svg>
-    </div>
+      // FIX 2: Use setTimeout for guaranteed cleanup so elements never pile up
+      setTimeout(() => {
+        if (el.parentNode) el.remove();
+      }, duration * 1000);
+    }
 
-    <audio
-      id="rocketSound"
-      src="images/mixkit-rocket-landing-whoosh-1721.mp3"
-      preload="auto"
-    ></audio>
-    <script>
-      document.getElementById("rocketSound").volume = 0.1;
-    </script>
+    // schedule next burst (randomized)
+    const next = isMobile
+      ? 350 + Math.random() * 550
+      : 500 + Math.random() * 900;
+    setTimeout(spawnBurst, next);
+  }
 
-    <div id="ship1" class="ship">
-      <svg viewBox="0 0 128 128" aria-label="Ship">
-        <defs>
-          <linearGradient id="shipBody" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#6DD5FA" />
-            <stop offset="100%" stop-color="#38BDF8" />
-          </linearGradient>
+  // kick off after slight delay
+  setTimeout(spawnBurst, 600);
+}
 
-          <linearGradient id="shipGlass" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#C4B5FD" />
-            <stop offset="100%" stop-color="#A78BFA" />
-          </linearGradient>
-        </defs>
+function initPage() {
+  createParticles();
+  requestAnimationFrame(() => requestAnimationFrame(animate));
+  createCodeParticles();
+  setupIntersectionObserver();
+  setupRocketLaunch();
+}
 
-        <!-- Body -->
-        <ellipse cx="64" cy="66" rx="34" ry="14" fill="url(#shipBody)" />
+function scheduleStartup() {
+  const safeIdleCallback =
+    window.requestIdleCallback?.bind(window) ||
+    ((callback) => window.setTimeout(callback, 300));
 
-        <!-- Cockpit -->
-        <ellipse cx="64" cy="57" rx="14" ry="8" fill="url(#shipGlass)" />
+  requestAnimationFrame(initPage);
+  safeIdleCallback(typeLine);
+}
 
-        <!-- Bottom -->
-        <ellipse cx="64" cy="69" rx="22" ry="5" fill="#0F172A" />
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", scheduleStartup);
+} else {
+  scheduleStartup();
+}
 
-        <!-- Lights -->
-        <circle cx="50" cy="66" r="2" fill="#F8FAFC" />
-        <circle cx="64" cy="66" r="2" fill="#F8FAFC" />
-        <circle cx="78" cy="66" r="2" fill="#F8FAFC" />
+function setupIntersectionObserver() {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) e.target.classList.add("visible");
+      }
+    },
+    { threshold: 0.2 },
+  );
 
-        <!-- Left Wing -->
-        <path
-          d="M36 64
-         L22 60
-         L30 71Z"
-          fill="#38BDF8"
-        />
+  document
+    .querySelectorAll(".fade-in, .project-card")
+    .forEach((el) => observer.observe(el));
+}
 
-        <!-- Right Wing -->
-        <path
-          d="M92 64
-         L106 60
-         L98 71Z"
-          fill="#38BDF8"
-        />
-      </svg>
-    </div>
-    <div id="ship2" class="ship">
-      <svg viewBox="0 0 128 128" aria-label="Ship">
-        <defs>
-          <linearGradient id="shipBody" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#6DD5FA" />
-            <stop offset="100%" stop-color="#38BDF8" />
-          </linearGradient>
+window.addEventListener("visibilitychange", () => {
+  if (document.hidden) cancelAnimationFrame(animationId);
+  else requestAnimationFrame(animate);
+});
 
-          <linearGradient id="shipGlass" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#C4B5FD" />
-            <stop offset="100%" stop-color="#A78BFA" />
-          </linearGradient>
-        </defs>
+/* Debounced resize (no reflow spam) */
+let resizeTimer = null;
+window.addEventListener(
+  "resize",
+  () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(resizeCanvas, 150);
+  },
+  { passive: true },
+);
 
-        <!-- Body -->
-        <ellipse cx="64" cy="66" rx="34" ry="14" fill="url(#shipBody)" />
+/* =========================
+   TYPEWRITER EFFECT (IDLE SAFE)
+========================= */
 
-        <!-- Cockpit -->
-        <ellipse cx="64" cy="57" rx="14" ry="8" fill="url(#shipGlass)" />
+const codeLines = [
+  "const developer = {",
+  '  name: <span class="token-string">"Abdalla Zahra"</span>,',
+  '  role: <span class="token-string">"Front-End Developer"</span>,',
+  '  skills: <span class="token-keyword">[</span><span class="token-string">"HTML"</span>, <span class="token-string">"CSS"</span>, <span class="token-string">"JavaScript"</span>, <span class="token-string">"SQL"</span>, <span class="token-string">"Git"</span><span class="token-keyword">]</span>,',
+  '  passion: <span class="token-string">"Creating beautiful & magical UIs"</span>',
+  "};",
+  "",
+];
 
-        <!-- Bottom -->
-        <ellipse cx="64" cy="69" rx="22" ry="5" fill="#0F172A" />
+let lineIndex = 0;
+let charIndex = 0;
+const output = document.getElementById("code-output");
 
-        <!-- Lights -->
-        <circle cx="50" cy="66" r="2" fill="#F8FAFC" />
-        <circle cx="64" cy="66" r="2" fill="#F8FAFC" />
-        <circle cx="78" cy="66" r="2" fill="#F8FAFC" />
+function typeLine() {
+  if (lineIndex >= codeLines.length) return;
 
-        <!-- Left Wing -->
-        <path
-          d="M36 64
-         L22 60
-         L30 71Z"
-          fill="#38BDF8"
-        />
+  const line = codeLines[lineIndex];
+  if (charIndex < line.length) {
+    output.innerHTML += line[charIndex++];
+    setTimeout(typeLine, 40);
+  } else {
+    output.innerHTML += "\n";
+    charIndex = 0;
+    lineIndex++;
+    setTimeout(typeLine, 200);
+  }
+}
 
-        <!-- Right Wing -->
-        <path
-          d="M92 64
-         L106 60
-         L98 71Z"
-          fill="#38BDF8"
-        />
-      </svg>
-    </div>
+/* =========================
+   SCROLL TO TOP (PASSIVE)
+========================= */
 
-    <!-- Portfolio -->
-    <section class="hero" id="projects">
-      <section class="section portfolio-section fade-in">
-        <h2 class="section-title">Projects</h2>
-        <div class="projects-grid">
-          <div class="project-card">
-            <a href="clones.html" target="_blank">
-              <div class="project-icon" aria-hidden="true">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <circle cx="12" cy="12" r="9"></circle>
-                  <path d="M3 12h18"></path>
-                  <path d="M12 3a15 15 0 0 1 0 18"></path>
-                  <path d="M12 3a15 15 0 0 0 0 18"></path>
-                </svg>
-              </div>
-              <h3>Famous Website Clones</h3>
-              <p>
-                Recreated platforms like <strong>Netflix</strong> and
-                <strong>Amazon</strong>.
-              </p>
-            </a>
-          </div>
+const scrollBtn = document.querySelector(".scroll-top");
+window.addEventListener(
+  "scroll",
+  () => {
+    if (!scrollBtn) return;
+    scrollBtn.classList.toggle("show", window.scrollY > 300);
+  },
+  { passive: true },
+);
 
-          <div class="project-card">
-            <a href="clients.html" target="_blank">
-              <div class="project-icon" aria-hidden="true">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-                  <path d="M8 5V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1"></path>
-                  <path d="M3 10h18"></path>
-                </svg>
-              </div>
-              <h3>Client Projects</h3>
-              <p>
-                Developed demo websites for
-                <strong>different services</strong>,
-              </p>
-            </a>
-          </div>
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
 
-          <div class="project-card">
-            <a
-              href="https://drive.google.com/file/d/1zA-qD60NPNM6-FteRD_g12_duc9FbpLm/view?usp=sharing"
-              target="_blank"
-            >
-              <div class="project-icon" aria-hidden="true">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path
-                    d="M7 3h7l5 5v13a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"
-                  ></path>
-                  <path d="M14 3v5h5"></path>
-                  <path d="M8 13h8"></path>
-                  <path d="M8 17h5"></path>
-                </svg>
-              </div>
-              <h3>CV Showcase</h3>
-              <p>
-                A personal hub that highlights my
-                <strong>background</strong>
-              </p>
-            </a>
-          </div>
-        </div>
-      </section>
-    </section>
+/* =========================
+   ROCKET LAUNCH (INP SAFE)
+========================= */
 
-    <!-- Contact -->
-    <section class="impact-section glow-bg contact fade-in" id="contact">
-      <section class="contact">
-        <h2>Contact Me</h2>
-        <form id="contact-form">
-          <input
-            type="text"
-            name="from_name"
-            placeholder="Your Name"
-            required
-          />
-          <input
-            type="email"
-            name="reply_to"
-            placeholder="Your Email"
-            required
-          />
-          <textarea
-            name="message"
-            placeholder="Your Message"
-            rows="5"
-            required
-          ></textarea>
-          <button type="submit">Send Message</button>
-        </form>
+function setupRocketLaunch() {
+  if (document.getElementById("rocket-launch-overlay")) return;
 
-        <div class="socials">
-          <a class="whats" href="https://wa.me/201097554612" target="_blank">
-            <i class="fab fa-whatsapp"></i> WhatsApp
-          </a>
-          <a class="email" href="my email.html" target="_blank">
-            <i class="fas fa-envelope"></i> My Email
-          </a>
-          <a
-            class="insta"
-            href="https://www.instagram.com/abdlla_zahra/?next=%2F"
-            target="_blank"
-          >
-            <i class="fab fa-instagram"></i> Instagram
-          </a>
-        </div>
-      </section>
-    </section>
+  const rocket = document.getElementById("rocket");
+  const sound = document.getElementById("rocketSound");
+  if (!rocket) return;
 
-    <!-- Tech Stack -->
-    <section class="tech-stack fade-in" id="tech-stack">
-      <section class="tech-stack">
-        <h2>Tech Stack</h2>
-        <div class="tech-icons">
-          <div class="tech-item">
-            <i class="fa-brands fa-html5"></i>
-            <span>HTML5</span>
-          </div>
-          <div class="tech-item">
-            <i class="fa-brands fa-css3-alt"></i>
-            <span>CSS3</span>
-          </div>
-          <div class="tech-item">
-            <i class="fa-brands fa-js"></i>
-            <span>JavaScript</span>
-          </div>
-          <div class="tech-item">
-            <i class="fa-brands fa-python"></i>
-            <span>Python</span>
-          </div>
-          <div class="tech-item">
-            <i class="fa-solid fa-database"></i>
-            <span>SQL</span>
-          </div>
-          <div class="tech-item">
-            <i class="fa-brands fa-github"></i>
-            <span>GitHub</span>
-          </div>
-        </div>
-      </section>
-    </section>
+  rocket.style.display = "none";
 
-    <!-- Code Showcase -->
+  const overlay = document.createElement("div");
+  overlay.id = "rocket-launch-overlay";
+  overlay.textContent = "Tap to launch the rocket 🚀";
+  overlay.style.cssText = `
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1rem, 4vw, 1.6rem);
+  font-weight: 600;
+  z-index: 100000;
+  cursor: pointer;
+  pointer-events: auto;
+`;
 
-      <section class="code-fly">
-        <div class="code-particles" id="codeParticles"></div>
-      </section>
-    </section>
+  document.body.appendChild(overlay);
 
-    <section class="impact-section glow-bg">
-      <div class="impact-content fade-in">
-        <div class="impact-right fade-in">
-          <div class="skills-grid">
-            <div class="skill-box">
-              <div class="skill-icon" aria-hidden="true">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <rect x="3" y="4" width="18" height="13" rx="2"></rect>
-                  <path d="M8 21h8"></path>
-                  <path d="M12 17v4"></path>
-                </svg>
-              </div>
-              <h4>Front-End Development</h4>
-            </div>
-            <div class="skill-box">
-              <div class="skill-icon" aria-hidden="true">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M9 18h6"></path>
-                  <path d="M10 21h4"></path>
-                  <path d="M9 15a3 3 0 0 1 3-3 3 3 0 1 1 3 3"></path>
-                  <path d="M12 3a5 5 0 0 0-3 9"></path>
-                </svg>
-              </div>
-              <h4>Back-End Development</h4>
-            </div>
-            <div class="skill-box">
-              <div class="skill-icon" aria-hidden="true">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path
-                    d="M13 2 9 6l3 3 4-4 1 5 4 1-4 4 4 4-4-1-5 4-1-4-4-1 4-4-3-3 4-4Z"
-                  ></path>
-                  <path d="M6 18l3-3"></path>
-                </svg>
-              </div>
-              <h4>Launch-Ready Web Projects</h4>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+  const launchRocket = (event) => {
+    event.preventDefault();
+    overlay.remove();
+    rocket.style.display = "block";
+    rocket.style.opacity = "1";
+    rocket.style.visibility = "visible";
 
-    <section class="bye-section">
-      <h2>Thanks for Visiting <span class="wave"></span></h2>
-    </section>
+    requestAnimationFrame(() => {
+      rocket.style.animation = `flyAcross ${rocketDuration}s ease-in-out forwards`;
+    });
 
-    <button onclick="scrollToTop()" class="scroll-top">↑</button>
-    <footer>&copy; 2025 Abdalla Zahra. All rights reserved.</footer>
+    sound?.play().catch(() => {});
+    startBackgroundMusic();
+    startFallingShips();
+  };
 
-    <script src="main.js" defer></script>
+  overlay.addEventListener("click", launchRocket, {
+    once: true,
+    passive: false,
+  });
+  overlay.addEventListener("touchstart", launchRocket, {
+    once: true,
+    passive: false,
+  });
+}
 
-    <!-- EmailJS -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"
-      defer
-    ></script>
-    <script defer>
-      window.addEventListener("DOMContentLoaded", () => {
-        emailjs.init("8IMPfSLqDyasVzGsA");
-        document
-          .getElementById("contact-form")
-          .addEventListener("submit", function (e) {
-            e.preventDefault();
-            emailjs.sendForm("service_s8w4z6v", "template_pyrwa4f", this).then(
-              () => {
-                alert("Message sent successfully!");
-                this.reset();
-              },
-              () => {
-                alert("Failed to send message.");
-              },
-            );
-          });
-      });
-    </script>
-  </body>
-</html>
+/* =========================
+   BACKGROUND MUSIC (SAFE)
+========================= */
+
+function startBackgroundMusic() {
+  if (!bgMusic) return;
+
+  bgMusic.currentTime = 0;
+  const playPromise = bgMusic.play();
+  if (playPromise) {
+    playPromise.catch(() => {});
+  }
+  bgMusic.volume = 0.06;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (window.__bg_music__) return;
+  window.__bg_music__ = true;
+
+  const music = document.createElement("audio");
+  music.src = "images/1025.m4a";
+  music.loop = true;
+  music.volume = 0;
+  document.body.appendChild(music);
+
+  bgMusic = music;
+
+  const fadeInMusic = () => {
+    const fade = setInterval(() => {
+      music.volume = Math.min(0.06, music.volume + 0.01);
+      if (music.volume >= 0.06) clearInterval(fade);
+    }, 100);
+  };
+
+  const toggle = document.getElementById("music-toggle");
+  toggle?.addEventListener("click", () => {
+    if (music.paused) {
+      startBackgroundMusic();
+      fadeInMusic();
+      toggle.textContent = "🔊";
+    } else {
+      music.pause();
+      toggle.textContent = "🔇";
+    }
+  });
+});
+
+/* =========================
+   FALLING SHIPS (IDLE)
+========================= */
+
+function startFallingShips() {
+  ["ship1", "ship2"].forEach((id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    el.style.opacity = "1";
+    el.style.visibility = "visible";
+    el.style.top = "-150px";
+    el.style.animation = "fall 11s linear forwards";
+  });
+}
