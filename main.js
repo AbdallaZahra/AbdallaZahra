@@ -469,9 +469,14 @@ function startBackgroundMusic(delay = 0) {
     bgMusic.currentTime = 0;
     const playPromise = bgMusic.play();
     if (playPromise) {
-      playPromise.catch(() => {});
+      playPromise
+        .then(() => {
+          bgMusic.volume = 0.06;
+        })
+        .catch(() => {});
+    } else {
+      bgMusic.volume = 0.06;
     }
-    bgMusic.volume = 0.06;
   }, delay);
 }
 
@@ -493,6 +498,17 @@ document.addEventListener("DOMContentLoaded", () => {
       if (music.volume >= 0.06) clearInterval(fade);
     }, 120);
   };
+
+  if (isMobile) {
+    startBackgroundMusic(0);
+    window.addEventListener(
+      "pointerdown",
+      () => {
+        startBackgroundMusic(0);
+      },
+      { once: true, passive: true },
+    );
+  }
 
   const toggle = document.getElementById("music-toggle");
   toggle?.addEventListener("click", () => {
