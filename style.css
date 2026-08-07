@@ -1945,3 +1945,10 @@ canvas {
   }
 }
 }
+header,
+.hero-section,
+.code-fly {
+  min-height: 100svh !important; /* 👈 Locks height so URL bar doesn't cause jumps */
+  height: auto;
+  /* Keep your other existing properties here (display, flex, padding, etc.) */
+}
