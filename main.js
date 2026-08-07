@@ -5,7 +5,7 @@
 const canvas = document.getElementById("bgCanvas");
 const ctx = canvas.getContext("2d", { alpha: true });
 
-const DPR = Math.min(window.devicePixelRatio || 1, 2);
+const DPR = Math.min(window.devicePixelRatio || 1, 1.5);
 let cw = 0;
 let ch = 0;
 
@@ -35,7 +35,7 @@ let lastFrame = 0;
 let bgMusic = null;
 
 function createParticles() {
-  const PARTICLE_COUNT = isMobile ? 40 : 100;
+  const PARTICLE_COUNT = isMobile ? 24 : 60;
   particles = [];
 
   for (let i = 0; i < PARTICLE_COUNT; i++) {
@@ -50,7 +50,7 @@ function createParticles() {
 }
 
 function animate(time = 0) {
-  if (time - lastFrame < 32) {
+  if (time - lastFrame < (isMobile ? 50 : 32)) {
     animationId = requestAnimationFrame(animate);
     return;
   }
@@ -102,7 +102,7 @@ function createCodeParticles() {
       return;
     }
 
-    const count = Math.random() < 0.35 ? 2 : 1; // sometimes two
+    const count = isMobile ? 1 : Math.random() < 0.35 ? 2 : 1;
     for (let i = 0; i < count; i++) {
       const el = document.createElement("div");
       el.className = "code-particle code-burst";
@@ -110,13 +110,13 @@ function createCodeParticles() {
         codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
 
       // position anywhere inside the container (spread across area)
-      const left = 5 + Math.random() * 90; // avoid absolute edges
-      const top = 5 + Math.random() * 80;
+      const left = 8 + Math.random() * 84;
+      const top = 8 + Math.random() * 78;
       el.style.setProperty("--start-left", `${left}%`);
       el.style.setProperty("--start-top", `${top}%`);
 
       // small random size / duration
-      el.style.fontSize = `${0.8 + Math.random() * 0.6}rem`;
+      el.style.fontSize = `${isMobile ? 0.7 + Math.random() * 0.25 : 0.8 + Math.random() * 0.6}rem`;
       const duration = 1.6 + Math.random() * 1.2;
       el.style.animationDuration = `${duration}s`;
 
@@ -130,8 +130,8 @@ function createCodeParticles() {
 
     // schedule next burst (randomized)
     const next = isMobile
-      ? 350 + Math.random() * 550
-      : 500 + Math.random() * 900;
+      ? 500 + Math.random() * 700
+      : 700 + Math.random() * 1000;
     setTimeout(spawnBurst, next);
   }
 
@@ -164,8 +164,8 @@ function createHoloCards() {
   const cardCount = isMobile
     ? 6
     : window.matchMedia("(max-width: 1024px)").matches
-      ? 10
-      : 14;
+      ? 8
+      : 10;
 
   const activeCards = [];
   const minSpacing = 30;
@@ -245,7 +245,7 @@ function createHoloCards() {
     card.innerHTML = `<span>${cardTexts[index % cardTexts.length]}</span>`;
     container.appendChild(card);
 
-    const cardWidth = randomInRange(isMobile ? 150 : 170, isMobile ? 210 : 250);
+    const cardWidth = randomInRange(isMobile ? 110 : 170, isMobile ? 150 : 250);
     card.style.setProperty("--card-width", `${cardWidth}px`);
     const cardHeight = card.getBoundingClientRect().height || 52;
 
@@ -254,8 +254,8 @@ function createHoloCards() {
     const driftX = randomInRange(-8, 8);
     const driftY = randomInRange(-8, 8);
     const rotDelta = randomInRange(-1.2, 1.2);
-    const duration = randomInRange(4.5, 5.8);
-    const delay = randomInRange(0, 2.2);
+    const duration = randomInRange(isMobile ? 3.2 : 4.5, isMobile ? 4.2 : 5.8);
+    const delay = randomInRange(0, isMobile ? 1.2 : 2.2);
 
     card.style.setProperty("--card-top", `${position.top}%`);
     card.style.setProperty("--card-left", `${position.left}%`);
@@ -365,17 +365,17 @@ let charIndex = 0;
 const output = document.getElementById("code-output");
 
 function typeLine() {
-  if (lineIndex >= codeLines.length) return;
+  if (!output || lineIndex >= codeLines.length) return;
 
   const line = codeLines[lineIndex];
   if (charIndex < line.length) {
     output.innerHTML += line[charIndex++];
-    setTimeout(typeLine, 40);
+    setTimeout(typeLine, isMobile ? 60 : 40);
   } else {
     output.innerHTML += "\n";
     charIndex = 0;
     lineIndex++;
-    setTimeout(typeLine, 200);
+    setTimeout(typeLine, isMobile ? 260 : 200);
   }
 }
 
@@ -437,12 +437,14 @@ function setupRocketLaunch() {
     rocket.style.opacity = "1";
     rocket.style.visibility = "visible";
 
+    document.querySelector(".welcome")?.classList.add("launch-started");
+
     requestAnimationFrame(() => {
       rocket.style.animation = `flyAcross ${rocketDuration}s ease-in-out forwards`;
     });
 
     sound?.play().catch(() => {});
-    startBackgroundMusic(2000);
+    startBackgroundMusic(isMobile ? 1500 : 2000);
     startFallingShips();
   };
 
@@ -487,9 +489,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const fadeInMusic = () => {
     const fade = setInterval(() => {
-      music.volume = Math.min(0.06, music.volume + 0.01);
+      music.volume = Math.min(0.06, music.volume + 0.008);
       if (music.volume >= 0.06) clearInterval(fade);
-    }, 100);
+    }, 120);
   };
 
   const toggle = document.getElementById("music-toggle");
