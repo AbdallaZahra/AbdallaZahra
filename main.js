@@ -33,6 +33,7 @@ let particles = [];
 let animationId = null;
 let lastFrame = 0;
 let bgMusic = null;
+let launchMusicStarted = false;
 
 function createParticles() {
   const PARTICLE_COUNT = isMobile ? 24 : 60;
@@ -444,7 +445,10 @@ function setupRocketLaunch() {
     });
 
     sound?.play().catch(() => {});
-    startBackgroundMusic(isMobile ? 1500 : 2000);
+    if (!launchMusicStarted) {
+      launchMusicStarted = true;
+      startBackgroundMusic(isMobile ? 1500 : 2000);
+    }
     startFallingShips();
   };
 
@@ -498,17 +502,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (music.volume >= 0.06) clearInterval(fade);
     }, 120);
   };
-
-  if (isMobile) {
-    startBackgroundMusic(0);
-    window.addEventListener(
-      "pointerdown",
-      () => {
-        startBackgroundMusic(0);
-      },
-      { once: true, passive: true },
-    );
-  }
 
   const toggle = document.getElementById("music-toggle");
   toggle?.addEventListener("click", () => {
