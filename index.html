@@ -58,128 +58,143 @@
     <!-- Rocket -->
     <div class="rocket-container" id="rocket">
       <!-- Main Rocket -->
-      <svg class="rocket" viewBox="0 0 128 128" aria-label="Rocket">
+      <svg
+        class="rocket"
+        viewBox="0 0 128 128"
+        aria-label="Rocket"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <defs>
-          <linearGradient id="rocketBody" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#6DD5FA" />
-            <stop offset="100%" stop-color="#38BDF8" />
-          </linearGradient>
-
-          <linearGradient id="purpleGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#C4B5FD" />
-            <stop offset="100%" stop-color="#A78BFA" />
-          </linearGradient>
-
+          <!-- Kept your outer flame gradient -->
           <linearGradient id="flameOuter" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stop-color="#A78BFA" />
             <stop offset="100%" stop-color="#38BDF8" />
           </linearGradient>
 
+          <!-- Softened the drop shadow slightly for a cleaner professional look -->
           <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
             <feDropShadow
               dx="0"
-              dy="4"
-              stdDeviation="4"
+              dy="6"
+              stdDeviation="6"
               flood-color="#0F172A"
-              flood-opacity="0.35"
+              flood-opacity="0.25"
             />
           </filter>
+
+          <!-- This clip path ensures all body details perfectly wrap the aerodynamic curve -->
+          <clipPath id="rocketBodyClip">
+            <path
+              d="M 64 8 C 72 24 76 40 76 56 L 76 92 L 52 92 L 52 56 C 52 40 56 24 64 8 Z"
+            />
+          </clipPath>
         </defs>
 
         <g filter="url(#shadow)">
-          <!-- Main Body -->
+          <!-- Flame (Geometric & Sleek) -->
+          <!-- Outer Flame -->
           <path
-            d="M64 8
-         C48 22 40 42 40 68
-         C40 88 50 102 64 114
-         C78 102 88 88 88 68
-         C88 42 80 22 64 8Z"
-            fill="url(#rocketBody)"
-          />
-
-          <!-- Dark Center -->
-          <path
-            d="M64 18
-         C54 30 49 46 49 66
-         C49 81 55 92 64 101
-         C73 92 79 81 79 66
-         C79 46 74 30 64 18Z"
-            fill="#0F172A"
-          />
-
-          <!-- Window -->
-          <circle cx="64" cy="43" r="10" fill="#F8FAFC" />
-          <circle cx="64" cy="43" r="6" fill="#38BDF8" />
-
-          <!-- Left Fin -->
-          <path
-            d="M40 64
-         L22 86
-         L44 83
-         L50 68Z"
-            fill="#38BDF8"
-          />
-
-          <!-- Right Fin -->
-          <path
-            d="M88 64
-         L106 86
-         L84 83
-         L78 68Z"
-            fill="#38BDF8"
-          />
-
-          <!-- Purple Wing Detail -->
-          <path
-            d="M48 70
-         C56 80 72 80 80 70
-         C76 86 70 92 64 92
-         C58 92 52 86 48 70Z"
-            fill="url(#purpleGlow)"
-          />
-
-          <!-- Engine -->
-          <path
-            d="M56 96
-         L72 96
-         L69 104
-         L59 104Z"
-            fill="#0F172A"
-          />
-
-          <!-- Flame -->
-          <path
-            d="M64 104
-         C78 118 74 126 64 122
-         C54 126 50 118 64 104Z"
+            d="M 54 100 C 54 114 60 124 64 126 C 68 124 74 114 74 100 Z"
             fill="url(#flameOuter)"
           />
-
+          <!-- Outer Flame Right Shadow -->
           <path
-            d="M64 108
-         C70 116 68 120 64 118
-         C60 120 58 116 64 108Z"
-            fill="#F8FAFC"
-            opacity=".9"
+            d="M 64 100 C 64 114 64 124 64 126 C 68 124 74 114 74 100 Z"
+            fill="#0F172A"
+            opacity="0.2"
           />
-
-          <!-- Nose -->
+          <!-- Inner Flame Core -->
           <path
-            d="M64 4
-         L72 18
-         L64 22
-         L56 18Z"
+            d="M 58 100 C 58 106 62 114 64 116 C 66 114 70 106 70 100 Z"
             fill="#F8FAFC"
           />
-
-          <!-- Gloss Highlight -->
           <path
-            d="M54 26
-         C49 40 49 66 56 84"
-            stroke="#F8FAFC"
-            stroke-width="2"
-            stroke-linecap="round"
-            opacity=".35"
+            d="M 64 100 C 64 106 64 116 64 116 C 66 114 70 106 70 100 Z"
+            fill="#0F172A"
+            opacity="0.1"
+          />
+
+          <!-- Engine Nozzle -->
+          <path d="M 54 90 L 74 90 L 78 102 L 50 102 Z" fill="#0F172A" />
+          <path
+            d="M 64 90 L 74 90 L 78 102 L 64 102 Z"
+            fill="#F8FAFC"
+            opacity="0.15"
+          />
+
+          <!-- Left Fin (Faceted 3D design) -->
+          <path d="M 52 64 L 26 84 L 52 88 Z" fill="#C4B5FD" />
+          <!-- Top Highlight -->
+          <path d="M 26 84 L 26 94 L 52 88 Z" fill="#A78BFA" />
+          <!-- Bottom Shadow -->
+
+          <!-- Right Fin (Faceted 3D design) -->
+          <path d="M 76 64 L 102 84 L 76 88 Z" fill="#A78BFA" />
+          <path d="M 102 84 L 102 94 L 76 88 Z" fill="#A78BFA" />
+          <!-- Right Fin Deep Shadow Overlay -->
+          <path
+            d="M 76 64 L 102 84 L 102 94 L 76 88 Z"
+            fill="#0F172A"
+            opacity="0.25"
+          />
+
+          <!-- Main Rocket Body -->
+          <g clip-path="url(#rocketBodyClip)">
+            <!-- Base Split Lighting -->
+            <rect x="0" y="0" width="64" height="128" fill="#6DD5FA" />
+            <rect x="64" y="0" width="64" height="128" fill="#38BDF8" />
+
+            <!-- Nose Cone Fairing -->
+            <rect x="0" y="0" width="128" height="32" fill="#F8FAFC" />
+            <rect x="0" y="32" width="128" height="2" fill="#0F172A" />
+            <!-- Panel Line -->
+
+            <!-- Purple Accent Band -->
+            <rect x="0" y="72" width="128" height="10" fill="#C4B5FD" />
+            <rect x="64" y="72" width="64" height="10" fill="#A78BFA" />
+            <rect x="0" y="72" width="128" height="2" fill="#0F172A" />
+            <!-- Top Panel Line -->
+            <rect x="0" y="80" width="128" height="2" fill="#0F172A" />
+            <!-- Bottom Panel Line -->
+
+            <!-- Base Engine Panel Line -->
+            <rect x="0" y="90" width="128" height="2" fill="#0F172A" />
+
+            <!-- Global Right-Side Shadow (Gives volume to nose cone and body) -->
+            <rect
+              x="64"
+              y="0"
+              width="64"
+              height="128"
+              fill="#0F172A"
+              opacity="0.15"
+            />
+
+            <!-- Left Edge Rim Highlight -->
+            <rect
+              x="52"
+              y="0"
+              width="2"
+              height="128"
+              fill="#F8FAFC"
+              opacity="0.5"
+            />
+          </g>
+
+          <!-- Window -->
+          <!-- Outer Frame -->
+          <circle cx="64" cy="50" r="8" fill="#0F172A" />
+          <!-- Left Glass Highlight -->
+          <path d="M 64 44 A 6 6 0 0 0 64 56 Z" fill="#38BDF8" />
+          <!-- Right Glass Base -->
+          <path d="M 64 44 A 6 6 0 0 1 64 56 Z" fill="#6DD5FA" />
+          <!-- Right Glass Inner Shadow -->
+          <path d="M 64 44 A 6 6 0 0 1 64 56 Z" fill="#0F172A" opacity="0.25" />
+          <!-- Diagonal Glass Glare -->
+          <path
+            d="M 60 46 L 63 46 L 59 50 L 56 50 Z"
+            fill="#F8FAFC"
+            opacity="0.8"
           />
         </g>
       </svg>
@@ -372,6 +387,115 @@
       </section>
     </section>
 
+    <!-- About Me -->
+    <section
+      class="impact-section glow-bg about-me-section fade-in"
+      id="about-me"
+    >
+      <div class="about-header">
+        <p class="section-subtitle">
+          Get to know the developer behind the code
+        </p>
+        <h2>ABOUT ME</h2>
+      </div>
+
+      <div class="about-ambient" aria-hidden="true">
+        <span class="ambient-star pos-1"></span>
+        <span class="ambient-star pos-2"></span>
+        <span class="ambient-star pos-3"></span>
+        <span class="ambient-star pos-4"></span>
+        <span class="ambient-star pos-5"></span>
+        <span class="ambient-star pos-6"></span>
+      </div>
+
+      <div class="orb-grid">
+        <article
+          class="orb orb-profile"
+          style="
+            --orb-duration: 11.4s;
+            --orb-x: 3px;
+            --orb-y: 10px;
+            --orb-rotate-start: 0.6deg;
+          "
+        >
+          <div class="orb-ring"></div>
+          <div class="orb-image-frame">
+            <img
+              src="images/myphoto.jpeg"
+              alt="Profile photo of Abdalla Zahra"
+            />
+          </div>
+          <div class="orb-copy">
+            <p class="orb-label">ABDALLA ZAHRA</p>
+            <p class="orb-meta">Full Stack Developer</p>
+          </div>
+        </article>
+
+        <article
+          class="orb orb-about"
+          style="
+            --orb-duration: 10.2s;
+            --orb-x: 2px;
+            --orb-y: 11px;
+            --orb-rotate-start: -0.8deg;
+          "
+        >
+          <div class="orb-icon">
+            <i class="fas fa-user-astronaut" aria-hidden="true"></i>
+          </div>
+          <p class="orb-headline">
+            Passionate Full Stack Developer focused on building modern,
+            scalable, and responsive web applications with clean architecture
+            and intuitive user experiences.
+          </p>
+        </article>
+
+        <article
+          class="orb orb-stats"
+          style="
+            --orb-duration: 12.1s;
+            --orb-x: 4px;
+            --orb-y: 8px;
+            --orb-rotate-start: 0.4deg;
+          "
+        >
+          <div class="orb-icon orb-icon-stats">
+            <i class="fas fa-chart-line" aria-hidden="true"></i>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <span class="stat-icon"><i class="fas fa-rocket"></i></span>
+              <div>
+                <strong>10+</strong>
+                <span>Projects</span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <span class="stat-icon"><i class="fas fa-laptop-code"></i></span>
+              <div>
+                <strong>2+</strong>
+                <span>Years Learning</span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <span class="stat-icon"><i class="fas fa-atom"></i></span>
+              <div>
+                <strong>10+</strong>
+                <span>Technologies</span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <span class="stat-icon"><i class="fas fa-book-open"></i></span>
+              <div>
+                <strong>Continuous</strong>
+                <span>Learning</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
     <!-- Contact -->
     <section class="impact-section glow-bg contact fade-in" id="contact">
       <section class="contact">
@@ -451,9 +575,9 @@
 
     <!-- Code Showcase -->
 
-      <section class="code-fly">
-        <div class="code-particles" id="codeParticles"></div>
-      </section>
+    <section class="code-fly">
+      <div class="code-particles" id="codeParticles"></div>
+      <div class="holo-panel-grid" id="holoCards" aria-hidden="true"></div>
     </section>
 
     <section class="impact-section glow-bg">
