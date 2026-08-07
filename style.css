@@ -1943,7 +1943,7 @@ canvas {
   .tech-icons i:hover {
     transform: none !important;
   }
-     header,
+     
 .hero-section,
 .code-fly {
   min-height: 80svh !important; /* 👈 Locks height so URL bar doesn't cause jumps */
