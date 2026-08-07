@@ -1934,5 +1934,14 @@ canvas {
   .code-fly {
     min-height: 80dvh;
   }
-  /* PERFORMANCE FIX */
+  @media (max-width: 768px) {
+  /* ... your other mobile styles ... */
+
+  /* 👈 ADD THIS: Prevents cards from jumping when touched */
+  .project-card:hover,
+  .skill-box:hover,
+  .tech-icons i:hover {
+    transform: none !important;
+  }
+}
 }
