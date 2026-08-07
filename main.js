@@ -139,10 +139,163 @@ function createCodeParticles() {
   setTimeout(spawnBurst, 600);
 }
 
+function createHoloCards() {
+  const cardTexts = [
+    "💻 Full Stack",
+    "⚡ Performance",
+    "🚀 Modern Web",
+    "⚛ React",
+    "🐍 Python",
+    "🌐 REST APIs",
+    "📱 Responsive Design",
+    "🧩 Problem Solver",
+    "🔒 Secure",
+    "♿ Accessibility",
+    "☁️ Cloud Ready",
+    "🎯 Detail Oriented",
+    "📚 Continuous Learning",
+    "🤝 Team Player",
+    "✨ Interactive",
+  ];
+
+  const container = document.getElementById("holoCards");
+  if (!container) return;
+
+  const cardCount = isMobile
+    ? 6
+    : window.matchMedia("(max-width: 1024px)").matches
+      ? 10
+      : 14;
+
+  const activeCards = [];
+  const minSpacing = 30;
+  const driftMargin = 12;
+
+  function randomInRange(min, max) {
+    return min + Math.random() * (max - min);
+  }
+
+  function getContainerBounds() {
+    const bounds = container.getBoundingClientRect();
+    const style = getComputedStyle(container);
+    const paddingLeft = parseFloat(style.paddingLeft) || 0;
+    const paddingRight = parseFloat(style.paddingRight) || 0;
+    const paddingTop = parseFloat(style.paddingTop) || 0;
+    const paddingBottom = parseFloat(style.paddingBottom) || 0;
+
+    return {
+      width: bounds.width,
+      height: bounds.height,
+      minX: paddingLeft + driftMargin,
+      maxX: bounds.width - paddingRight - driftMargin,
+      minY: paddingTop + driftMargin,
+      maxY: bounds.height - paddingBottom - driftMargin,
+    };
+  }
+
+  function rectsOverlap(a, b) {
+    return (
+      a.left < b.left + b.width + minSpacing &&
+      a.left + a.width + minSpacing > b.left &&
+      a.top < b.top + b.height + minSpacing &&
+      a.top + a.height + minSpacing > b.top
+    );
+  }
+
+  function pickValidPosition(cardWidth, cardHeight) {
+    const bounds = getContainerBounds();
+    const attempts = 100;
+    const maxX = Math.max(bounds.minX, bounds.maxX - cardWidth);
+    const maxY = Math.max(bounds.minY, bounds.maxY - cardHeight);
+
+    for (let attempt = 0; attempt < attempts; attempt += 1) {
+      const leftPx = randomInRange(bounds.minX, maxX);
+      const topPx = randomInRange(bounds.minY, maxY);
+      const candidate = {
+        left: leftPx,
+        top: topPx,
+        width: cardWidth,
+        height: cardHeight,
+      };
+
+      const collision = activeCards.some((existing) =>
+        rectsOverlap(candidate, existing),
+      );
+      if (!collision) {
+        return {
+          leftPx,
+          topPx,
+          left: (leftPx / bounds.width) * 100,
+          top: (topPx / bounds.height) * 100,
+        };
+      }
+    }
+
+    return {
+      leftPx: bounds.minX,
+      topPx: bounds.minY,
+      left: (bounds.minX / bounds.width) * 100,
+      top: (bounds.minY / bounds.height) * 100,
+    };
+  }
+
+  function createCard(index) {
+    const card = document.createElement("div");
+    card.className = "holo-card";
+    card.innerHTML = `<span>${cardTexts[index % cardTexts.length]}</span>`;
+    container.appendChild(card);
+
+    const cardWidth = randomInRange(isMobile ? 150 : 170, isMobile ? 210 : 250);
+    card.style.setProperty("--card-width", `${cardWidth}px`);
+    const cardHeight = card.getBoundingClientRect().height || 52;
+
+    const position = pickValidPosition(cardWidth, cardHeight);
+    const rotation = randomInRange(-3, 3);
+    const driftX = randomInRange(-8, 8);
+    const driftY = randomInRange(-8, 8);
+    const rotDelta = randomInRange(-1.2, 1.2);
+    const duration = randomInRange(4.5, 5.8);
+    const delay = randomInRange(0, 2.2);
+
+    card.style.setProperty("--card-top", `${position.top}%`);
+    card.style.setProperty("--card-left", `${position.left}%`);
+    card.style.setProperty("--card-rotation", `${rotation}deg`);
+    card.style.setProperty("--card-drift-x", `${driftX}px`);
+    card.style.setProperty("--card-drift-y", `${driftY}px`);
+    card.style.setProperty("--card-rot-delta", `${rotDelta}deg`);
+    card.style.animation = `holoFloat ${duration}s ease-in-out ${delay}s both`;
+
+    activeCards.push({
+      element: card,
+      left: position.leftPx,
+      top: position.topPx,
+      width: cardWidth,
+      height: cardHeight,
+    });
+
+    card.addEventListener("animationend", () => {
+      const indexToRemove = activeCards.findIndex(
+        (item) => item.element === card,
+      );
+      if (indexToRemove !== -1) activeCards.splice(indexToRemove, 1);
+
+      if (card.parentNode) {
+        card.remove();
+        createCard(index + cardCount);
+      }
+    });
+  }
+
+  for (let i = 0; i < cardCount; i += 1) {
+    createCard(i);
+  }
+}
+
 function initPage() {
   createParticles();
   requestAnimationFrame(() => requestAnimationFrame(animate));
   createCodeParticles();
+  createHoloCards();
   setupIntersectionObserver();
   setupRocketLaunch();
 }
@@ -289,7 +442,7 @@ function setupRocketLaunch() {
     });
 
     sound?.play().catch(() => {});
-    startBackgroundMusic();
+    startBackgroundMusic(2000);
     startFallingShips();
   };
 
@@ -307,15 +460,17 @@ function setupRocketLaunch() {
    BACKGROUND MUSIC (SAFE)
 ========================= */
 
-function startBackgroundMusic() {
+function startBackgroundMusic(delay = 0) {
   if (!bgMusic) return;
 
-  bgMusic.currentTime = 0;
-  const playPromise = bgMusic.play();
-  if (playPromise) {
-    playPromise.catch(() => {});
-  }
-  bgMusic.volume = 0.06;
+  setTimeout(() => {
+    bgMusic.currentTime = 0;
+    const playPromise = bgMusic.play();
+    if (playPromise) {
+      playPromise.catch(() => {});
+    }
+    bgMusic.volume = 0.06;
+  }, delay);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
